@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+  <meta charset='utf-8'>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width,maximum-scale=2">
+  <link rel="stylesheet" type="text/css" media="screen"
+    href="/roundnet-ai-showcase/assets/css/style.css?v=5cc21eab9a97888f2ef065487bba515071fd21ac">
+
+  <!-- Begin Jekyll SEO tag v2.7.1 -->
+  <title>Using a Faster R-CNN Deep Neural Network to Track Objects for the Sport of Roundnet. |
+    roundnet-ai-showcase</title>
+  <meta name="generator" content="Jekyll v3.9.0" />
+  <meta property="og:title"
+    content="Using a Faster R-CNN Deep Neural Network to Track Objects for the Sport of Roundnet." />
+  <meta property="og:locale" content="en_US" />
+  <meta name="description"
+    content="A pipeline for tracking sports analytics with machine learning techniques for the sport of roundnet." />
+  <meta property="og:description"
+    content="A pipeline for tracking sports analytics with machine learning techniques for the sport of roundnet." />
+  <link rel="canonical" href="https://austinulfers.github.io/roundnet-ai-showcase/" />
+  <meta property="og:url" content="https://austinulfers.github.io/roundnet-ai-showcase/" />
+  <meta property="og:site_name" content="roundnet-ai-showcase" />
+  <meta name="twitter:card" content="summary" />
+  <meta property="twitter:title"
+    content="Using a Faster R-CNN Deep Neural Network to Track Objects for the Sport of Roundnet." />
+  <script type="application/ld+json">
+{"description":"A pipeline for tracking sports analytics with machine learning techniques for the sport of roundnet.","url":"https://austinulfers.github.io/roundnet-ai-showcase/","@type":"WebSite","headline":"Using a Faster R-CNN Deep Neural Network to Track Objects for the Sport of Roundnet.","name":"roundnet-ai-showcase","@context":"https://schema.org"}</script>
+  <!-- End Jekyll SEO tag -->
+
+  <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+  <!-- Setup Google Analytics -->
+
+
+
+  <!-- You can set your favicon here -->
+  <!-- link rel="shortcut icon" type="image/x-icon" href="/roundnet-ai-showcase/favicon.ico" -->
+
+  <!-- end custom head snippets -->
+
+</head>
+
+<body>
+
+  <!-- HEADER -->
+  <div id="header_wrap" class="outer">
+    <header class="inner">
+
+      <a id="forkme_banner" href="https://github.com/austinulfers/roundnet-ai-showcase">View on GitHub</a>
+
+
+      <h1 id="project_title">roundnet-ai-showcase</h1>
+      <h2 id="project_tagline">A pipeline for tracking sports analytics with machine learning techniques for the sport
+        of roundnet.</h2>
+
+
+    </header>
+  </div>
+
+  <!-- MAIN CONTENT -->
+  <div id="main_content_wrap" class="outer">
+    <section id="main_content" class="inner">
+      <h1 id="using-a-faster-r-cnn-deep-neural-network-to-track-objects-for-the-sport-of-roundnet">Using a
+        Faster R-CNN Deep Neural Network to Track Objects for the Sport of Roundnet.</h1>
+
+      <p><em>A second look at sports analytics for the sport of roundnet</em></p>
+
+      <p>By: Austin Ulfers</p>
+
+      <p>Published: November 22nd, 2021</p>
+
+      <h2 id="background">Background</h2>
+      <p>Over the past year and a half, I have continued to be interested in the idea of developing a sports analytics
+        pipeline for roundnet. Like how AWS is used in the NFL’s Next Gen Stat’s ecosystem [<em>1</em>], I believe
+        something similar could be implemented and would be beneficial. In March of 2020, I set out to begin developing
+        my attempt at a similar pipeline but aimed at the sport of roundnet instead of football.</p>
+
+      <h3 id="previous-document">Previous Document</h3>
+      <p>A lot has changed between my first version [<em>2</em>] and the version presented here. There were quite a few
+        limitations of the previous process, the main ones being that the footage was explicitly selected for the
+        environment and the footage was gathered using a drone overtop of the game which is not a standard way to
+        collect footage from a match.</p>
+
+      <h3 id="self-improvement">Self Improvement</h3>
+      <p>Since the release of that document, I have continued to improve on the methodology outlined there. The way I
+        was going about finding and tracking the ball was very rudimentary and not easily generalizable to other videos.
+        I knew that I would need a fundamental shift in how I was thinking about this problem. However, I did not have
+        the skills necessary to act on it. At the time I was a Junior at the University of Washington with only a year
+        and a half of experience with Python and had not taken all the machine learning classes available to me yet.
+        Since then, I have graduated with my degree in Informatics with a specialization in data science, have a solid 3
+        years of programming experience with Python, and have several other computer vision projects under my belt.</p>
+
+      <h2 id="abstract">Abstract</h2>
+
+      <p>Within this document, I will outline the process for tracking a roundnet ball within a video using Facebook’s
+        Detectron2 [<em>3</em>] Faster R-CNN model with transfer learning. Once objects within the video are
+        established, a series of algorithm and machine learning operations are performed to determine the active ball
+        within a video of a single roundnet round. Through these operations, generalizable tracking was successfully
+        established but further work is needed to implement analytics tracking on a per-player basis.</p>
+
+      <h2 id="outline">Outline</h2>
+
+      <p>This document will follow one video as we progress through the methodology. However, it should be noted that
+        this process is generalizable to commonly gathered roundnet footage. Illustrations and captures of the process
+        will be outlined along the way. Later in this document, I will cover the limitations as well as the
+        recommendations for future iterations of these methods.</p>
+
+      <h2 id="introduction">Introduction</h2>
+
+      <h3 id="annotated-training-data">Annotated Training Data</h3>
+
+      <p>To begin, I would like to give a much needed thank you to the University of Washington husky roundnet club
+        [<em>4</em>] for the donation of their footage archive to be used for the purpose of this project. They donated
+        over 300 gigabytes of video footage from over 40 unique locations &amp; lighting conditions.</p>
+
+      <p>Since my solution involved a Faster R-CNN object detection model with transfer learning [<em>5</em>], I knew
+        that I would only need a small subset of images to train, validate, and test my model. To facilitate this, I
+        created a couple helper functions to extract random images from the video library and spent roughly 12 hours
+        labeling all images.</p>
+
+      <p>Every annotated image had objects of the following two classes:</p>
+      <ul>
+        <li>Net</li>
+        <li>Ball</li>
+      </ul>
+
+      <h3 id="roboflow">Roboflow</h3>
+
+      <p>Before I wanted to dive into creating the object detection model on my own, I wanted to test and make sure that
+        the annotations that I had could produce results capable of the time investment needed to develop the model. I
+        chose to use Roboflow [<em>6</em>] as my proof-of-concept choice because it aims to commercialize the computer
+        vision industry and it has a very low bar for entry. Below you can see the results from that training.</p>
+
+      <p><strong>Overall</strong>:</p>
+
+      <table>
+        <thead>
+          <tr>
+            <th>mAP</th>
+            <th>precision</th>
+            <th>recall</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>93.5%</td>
+            <td>64.9%</td>
+            <td>94.8%</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p>Although these results are great, they start to degrade when you look at the specific precision score for each
+        class.</p>
+
+      <table>
+        <thead>
+          <tr>
+            <th> </th>
+            <th>Net</th>
+            <th>Ball</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>precision</td>
+            <td>94%</td>
+            <td>40%</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p>The roboflow training graphs can be seen in <em>Figure 1</em>.</p>
+
+      <p><img src="/roundnet-ai-showcase/img/v2-faster_r-cnn/roboflow/roboflow_metrics_training_graphs.png"
+          alt="Roboflow Training Graphs" />
+        <em>Figure 1: Roboflow training graphs.</em>
+      </p>
+
+      <p>Although not perfect, this proved as a satisfactory proof of concept for me to continue with the project. After
+        getting this done, I knew at some point in the future I would need to develop my own model because of the costs
+        associated with Roboflow.</p>
+
+      <p>Per their pricing model, training credits are limited, and it costs $10 per 1000 inferences which is only a 33
+        second video so I knew I would need a cheaper solution.</p>
+
+      <p>After a lot of searching a lot of time spent trying to configure my development environment, I eventually got a
+        detectron2 faster r-cnn model trained on my annotated dataset. It can take individual images and predict the
+        locations of balls and Nets within the image. Some of the results from that training can be seen in
+        <em>Figure 2</em>. I left a lot of the default values in for the training and didn’t do much hyperparameter
+        tuning so I believe this model could be greatly improved in the future with more training data, and some better
+        tuning.
+      </p>
+
+      <p><img src="/roundnet-ai-showcase/img/v2-faster_r-cnn/detectron2/accuracy.png"
+          alt="Tensorboard Detectron2 Model Performance" />
+        <img src="/roundnet-ai-showcase/img/v2-faster_r-cnn/detectron2/loss.png"
+          alt="Tensorboard Detectron2 Model Total Loss" />
+      </p>
+
+      <p><em>Figure 2: Various measurements from the detectron2 training of 3000 epochs.</em></p>
+
+      <p>This model turned out to be even more accurate than the Roboflow model which is also a plus. However, now that
+        we have an accessible model, let’s move onto applying it.</p>
+
+      <h3 id="sample-video">Sample Video</h3>
+
+      <p>Below is a low resolution gif of the sample video. However, a full resolution video can be found on YouTube
+        here. <a href="https://www.youtube.com/watch?v=kgmbi1J97FA">https://www.youtube.com/watch?v=kgmbi1J97FA</a></p>
+
+      <p><img src="/roundnet-ai-showcase/img/v2-faster_r-cnn/IMG_1895_Trim.gif" alt="Sample Video" /></p>
+
+      <p><em>Figure 3: Sample video in gif format.</em></p>
+
+      <p>This video is a part of my test set in which the model was not trained on any of these images so when the model
+        predicts on these frames, it is seeing them for the first time. We will follow this video through the
+        methodology that is outlined next.</p>
+
+      <h2 id="methodology">Methodology</h2>
+
+      <h3 id="inferencing">Inferencing</h3>
+
+      <p>Now, the first step in order to track these objects is to complete inferencing on each of the video frames.
+        Since the model that was used only works on individual images, it was necessary to divide the video up into
+        frames. This is one area of potential improvement that will be discussed more at the bottom of this document.
+      </p>
+
+      <p>After passing in the image to the model, we get an object that contains all the bounding box information for
+        all the detected objects in the image.</p>
+
+      <p>A gif of the inferred video using the model can be seen below. Again, a higher resolution video can be found on
+        YouTube here. <a
+          href="https://www.youtube.com/watch?v=VIlFG7NpFNk">https://www.youtube.com/watch?v=VIlFG7NpFNk</a>. Anything
+        with a blue bounding box is a roundnet ball and anything with a red bounding box is a Net.</p>
+
+      <p><img src="/roundnet-ai-showcase/img/v2-faster_r-cnn/IMG_1895_Trim_labeled.gif"
+          alt="Sample Video with Inferences" /></p>
+
+      <p><em>Figure 4: Sampled video with object detection inferences.</em></p>
+
+      <p>As you can see within this video, there are multiple balls identified so the next problem becomes
+        identifying the active ball.</p>
+
+      <h3 id="finding-the-active-ball">Finding the Active Ball</h3>
+
+      <p>After iterating on several different options of identification, I ended up landing on what I believe is a good
+        generalizable solution that only operates under the following assumption.</p>
+
+      <ul>
+        <li>There is only one active ball within the span of the video.</li>
+        <li>The ball that moves the most at the beginning is the active and all others are considered exclusionary.</li>
+        <li>The active ball can be identified within the first 90 frames of the video.</li>
+        <li>A ball will not be removed from an exclusionary position for the duration of the video.</li>
+      </ul>
+
+      <p>To enforce these assumptions, I take the first 90 frames of the video and examine all ball positions over time.
+        This gives a three-dimensional view where the X and Y axes are their respective pixel positions on the camera
+        and the Z axis is the frame number.</p>
+
+      <p><img src="/roundnet-ai-showcase/img/v2-faster_r-cnn/starting_actives_no_color.png"
+          alt="Identifying the Active Ball" /></p>
+
+      <p><em>Figure 5: A three dimensional view of all balls and their positions within the first 90 frames of the
+          sample video.</em></p>
+
+      <p>I then use the DBSCAN clustering model [<em>7</em>] from scikit-learn to cluster these points into distinct
+        groupings as seen in <em>Figure 6</em>.</p>
+
+      <p><img src="/roundnet-ai-showcase/img/v2-faster_r-cnn/starting_actives.png"
+          alt="DBSCAN Clustering on starting roundnet balls" /></p>
+
+      <p><em>Figure 6: Three clusters identified using DBSCAN within the first 90 frames.</em></p>
+
+      <p>From here, we can separate the data into their respective clusters and find the active ball according to the
+        cluster that has the most movement in the x &amp; y dimensions. In the above example, this would be cluster 0.
+      </p>
+
+      <p>From here, now that we know where the active ball begins, we add all other clusters to an exclusionary set that
+        we deem as the “stationary balls” where we assume it is safe to say that any ball found within that region can
+        be ignored in the future.</p>
+
+      <h3 id="linking-objects-between-frames">Linking Objects Between Frames</h3>
+
+      <p>One interesting problem that I was faced with solving during this was trying to figure out the best way to
+        store this data. I decided to go with a doubly linked list since I knew I had a series of frames that are all
+        connected. In addition, I also had one object I called a trail that always kept track of the first and last
+        nodes in the doubly linked list as seen below.</p>
+
+      <p><img src="/roundnet-ai-showcase/img/v2-faster_r-cnn/trail_linked_list.png"
+          alt="Doubly Linked List with Trail Head" /></p>
+
+      <p><em>Figure 7: The doubly linked list data structure with an attached trail object used to keep track of the
+          first and last nodes.</em></p>
+
+      <p>Storing the data this way allowed me to perform quick <code
+          class="language-plaintext highlighter-rouge">O(1)</code> runtimes for all the functions that I would need
+        quick access to.</p>
+
+      <p>Starting from the beginning of the video and the starting active positions given from the clustering performed
+        earlier, I sequentially walk through the frames. For each new frame that I examine, I start by checking if any
+        of the detected objects lie within range of one of the exclusionary set objects. If it is I can safely assume
+        that that object is stationary and not active. This means that there are three cases that we need to account for
+        given we have already excluded the existing stationary balls.</p>
+
+      <ol>
+        <li>Zero balls are in the next frame.</li>
+        <li>Exactly one ball is in the next frame.</li>
+        <li>Two or more balls are in the next frame.</li>
+      </ol>
+
+      <p>For the first scenario, we assume that either the model didn’t pick up the object or the ball has traveled to a
+        location that can be seen by the camera (offscreen or behind someone). To remedy this, we leave the trail as
+        blank for this frame and expand the search area for the next frame.</p>
+
+      <p>In any case besides the one just described; we perform the next two operations.</p>
+
+      <ol>
+        <li>Predict where the ball should be based on the past X frames.</li>
+        <li>Determine the next active ball to be the one closest to the predicted or prior location.</li>
+      </ol>
+
+      <p>The first step is performed through two independent quadratic regression models, one for the X value and one
+        for the Y value. For both models, the frame number is used as the independent variable.</p>
+
+      <p><img src="/roundnet-ai-showcase/img/v2-faster_r-cnn/xy_predicted.png"
+          alt="Predicting Future Object Location" /></p>
+
+      <p><em>Figure 8: By fitting the regression model to the past X frames, we can predict ahead to estimate where the
+          future location of the ball will be by combining the results of the x and y regression models.</em></p>
+
+      <p>Now that we have a predicted location, we can use that to narrow down which object is likely to be the active
+        ball in the next frame. Any other ball that is not the closest one within this search area is then added to the
+        exclusionary set. In practice, the model will sometimes pick up a random object in the middle of the video so
+        this method helps with continuing to keep the exclusionary set up to date throughout the duration of the video.
+      </p>
+
+      <h2 id="results">Results</h2>
+
+      <p>Putting all of this together, we can see in <em>Figure 9</em> that this process works quite well to track the
+        active ball throughout the duration of the video. As before, a link to a higher resolution video can be found on
+        YouTube here. <a
+          href="https://www.youtube.com/watch?v=3uQqHJMAisI">https://www.youtube.com/watch?v=3uQqHJMAisI</a></p>
+
+      <p><img src="/roundnet-ai-showcase/img/v2-faster_r-cnn/IMG_1895_Trim_tracked.gif"
+          alt="Sample Video with Tracked Actived Ball" /></p>
+
+      <p><em>Figure 9: The tracked location of the active ball within the sample video with overlaying informational
+          graphics.</em></p>
+
+      <p><strong>Legend</strong></p>
+      <ul>
+        <li><em>Blue Arrow</em>: Active Ball Past Location</li>
+        <li><em>Green Box</em>: Active Ball Bounding Box</li>
+        <li><em>Orange Open Circle</em>: Active Ball Search Area</li>
+        <li><em>Yellow Filled Circle</em>: Predicted Active Ball Location</li>
+        <li><em>Blue Box</em>: Non-Active Ball Bounding Box</li>
+        <li><em>Red Box</em>: Net Bounding Box</li>
+        <li><em>Red Circle</em>: Exclusionary Set</li>
+      </ul>
+
+      <p>In the parts of the video that are stuttering, that means that the model was not able to find anything that
+        frame that was a part of the active ball set. This can also be seen by the expanded search area/orange open
+        circle in some parts of the video. Over my testing, I found that a 6-frame lookback was sufficient to predict
+        the location of the ball in the next frame. This might be able to be tweaked to get better results.</p>
+
+      <h3 id="reconstructions">Reconstructions</h3>
+
+      <p>In addition to this exported video, I created several other graphics that I thought were helpful in supplying
+        additional information to the end results.</p>
+
+      <p><img src="/roundnet-ai-showcase/img/v2-faster_r-cnn/active_ball_position.png"
+          alt="Single Dimension Reconstruction for Active Ball Position" /></p>
+
+      <p><em>Figure 10: The active ball position tracked on a line plot. Both for over time in each respective dimension
+          and once combined.</em></p>
+
+      <p><img src="/roundnet-ai-showcase/img/v2-faster_r-cnn/3d_reconstruction.gif"
+          alt="Gif of the Attempted 3D Reconstruction" /></p>
+
+      <p><em>Figure 11: A 3D reconstruction attempt using a rolling average of the hypotenuse of the active ball’s
+          bounding box as the Z dimension. The color of the scatter points corresponds to the frame number so that the
+          darker colors correspond with earlier points in the video.</em></p>
+
+      <p>I was hoping that I could use the object detection’s consistency in predictions to use as an artificial measure
+        for the Z dimension. However, as you can see from the 3D reconstruction, the depth suffers from many issues
+        which stem from the fact that the bounding boxes that are given to the balls are already small. This gives
+        an incredibly small margin for error and why you see the major arcs moving between the Z axis when it should be
+        constant or linear.</p>
+
+      <h2 id="application">Application</h2>
+
+      <p>Now that we have all the pieces built out separately, I wanted a seamless way to integrate each part with one
+        another. Using Streamlit [<em>8</em>], I was able to create a local web application with Python where I could
+        upload a video from my computer or other device connected via Wi-Fi and go through the same process in an
+        automated fashion. A screenshot of that web app can be seen in <em>Figure 12</em>. And a YouTube video of the
+        experience can be found here. <a
+          href="https://www.youtube.com/watch?v=gk-UUunQf08">https://www.youtube.com/watch?v=gk-UUunQf08</a></p>
+
+      <p><img src="/roundnet-ai-showcase/img/v2-faster_r-cnn/app_screenshot.png" alt="Streamlit Application" /></p>
+
+      <h2 id="improvements">Improvements</h2>
+
+      <p>As you might have been able to tell by now, the improvements made in this current version compared to the prior
+        document shows immense progress in many of the areas that the pervious paper highlighted as limitations. Below
+        are some of those major improvements.</p>
+
+      <ul>
+        <li><strong>Generalizability</strong>: The major issue with the previous document was that everything described
+          there was hand crafted for that specific video. With the steps outlined here, we have developed a
+          generalizable model and pipeline that can be used on any roundnet footage that is commonly gathered.</li>
+        <li><strong>Standard Camera Position</strong>: The current method eliminates the need for a drone and instead
+          utilizes the standard way for gathering this footage.</li>
+        <li><strong>Handel’s More Exceptions</strong>: We now can account for things like multiple balls in a frame, a
+          hidden ball, lighting differences, and much more.</li>
+        <li><strong>Net Identification</strong>: Although the net was also identified in the previous version as well,
+          it is also now more robust with the neural network.</li>
+        <li><strong>Better Python Programmer &amp; Data Scientist</strong>: I myself have undergone a lot of personal
+          growth over the past year which has allowed me to write better code and apply these deep learning concepts to
+          this application.</li>
+      </ul>
+
+      <h2 id="limitations">Limitations</h2>
+
+      <p>Everything isn’t sunshine and rainbows though. There is still a long way to go before a lot of the following
+        limitations (some of which were raised in the prior document) will be completed.</p>
+      <ul>
+        <li><strong>Speed</strong>: Although speed can be calculated, since we don’t have all three dimensions, the
+          speed of the ball will be inaccurate.</li>
+        <li><strong>Depth</strong>: As seen above, there was an attempt to track the depth from the 2D video. However,
+          this proved incredibly unreliable.</li>
+        <li><strong>Analytics</strong>: We are currently only tracking the ball, in order to track analytics, that means
+          that we need to identify people, hits, and be able to track those for the duration of a game.</li>
+        <li><strong>Clipped Video</strong>: As you saw from the sample video, the methodology only works for one point
+          during a game and the beginning had to be right when the player was about to server the ball. Forcing a user
+          to clip each point after taking the video doesn’t make much sense and defeats the purpose of automation.</li>
+        <li><strong>Local Application</strong>: The Streamlit application worked great, however, it was only running on
+          a local server on my machine where my graphics card could process the videos. This meant that I had to be on
+          Wi-Fi in order to connect to it.</li>
+      </ul>
+
+      <h2 id="recommendations">Recommendations</h2>
+
+      <p>Below are some things that I have already began to think about as iterations for the next version of this
+        project.</p>
+
+      <ul>
+        <li>Speed enhancements to make tracking and inferences perform in real time.</li>
+        <li>Add linked tracking for a second camera setup to increase capture rate and allow for reliable
+          multi-dimensional tracking. This could take form as a neural network that takes two camera video feed as input
+          and can identify the same objects between both frames. However, I am unaware of any out of the box solutions
+          currently available that could perform this analysis.</li>
+        <li>Using image segmentation instead of bounding box-based object detection.</li>
+        <li>Using a neural network that can track objects between frames of a video without having to manually search
+          for links between frames.</li>
+        <li>Tracking players and being able to continue to identify these players throughout the course of the video.
+        </li>
+        <li>Developing an app like the Streamlit proof of concept for commercial use.</li>
+        <li>As stated above, there needs to be a way to upload the whole video to the pipeline without having to trim
+          the video down for every point.</li>
+        <li>Analytics as proposed by Roundnet Stats Tracker are a good beginning step to implement analytics where this
+          application could be useful.</li>
+        <li>Cloud computing would be necessary for performing these operations on a live app.</li>
+      </ul>
+
+      <h2 id="conclusion">Conclusion</h2>
+
+      <p>To conclude, throughout this document, we have explored a foundational implementation for machine learning in
+        tracking key roundnet objects. Although we continue to have a long way to go towards getting an analytics
+        engine running, the progress made up until this point proves instrumental for the potential success of this
+        application in the future.</p>
+
+      <h2 id="future">Future</h2>
+
+      <p>This is not the end! I will continue to put work into this project and will continue working towards a future
+        where a set of algorithms can automatically extract analytic metrics from roundnet footage. I will continue to
+        work towards reducing the stated limitations and you will undoubtably hear from me again.</p>
+
+      <h2 id="references">References</h2>
+
+      <ol>
+        <li><a href="https://nextgenstats.nfl.com/"><em>“NFL Next Gen Stats Powered by AWS”</em></a></li>
+        <li><a href="https://austinulfers.github.io/roundnet-ai-showcase/"><em>“Tracking a roundnet ball from an Aerial
+              View”</em></a> Published 2020-03-31</li>
+        <li><a href="https://ai.facebook.com/blog/-detectron2-a-pytorch-based-modular-object-detection-library-/"><em>“Detectron2:
+              A PyTorch-based modular object detection library”</em></a> Published 2019-10-10</li>
+        <li><a href="https://www.instagram.com/husky.roundnet.club/?hl=en"><em>“Husky Roundnet Club Instagram”</em></a>
+        </li>
+        <li><a href="https://arxiv.org/abs/1506.01497"><em>“Faster R-CNN: Towards Real-Time Object Detection with Region
+              Proposal Networks”</em></a> Published 2015-06-04</li>
+        <li><a
+            href="https://blog.roboflow.com/training-a-tensorflow-faster-r-cnn-object-detection-model-on-your-own-dataset/"><em>“Training
+              a TensorFlow Faster R-CNN Object Detection Model on Your Own Dataset”</em></a> Published 2020-03-11</li>
+        <li><a href="https://www.aaai.org/Papers/KDD/1996/KDD96-037.pdf?source=post_page"><em>“A Density-Based Algorithm
+              for Discovering Clusters in Large Spatial Databases with Noise”</em></a> Published 1996</li>
+        <li><a href="https://streamlit.io/"><em>“The fastest way to build and share data apps”</em></a></li>
+      </ol>
+
+    </section>
+  </div>
+
+  <!-- FOOTER  -->
+  <div id="footer_wrap" class="outer">
+    <footer class="inner">
+
+      <p class="copyright">roundnet-ai-showcase maintained by <a href="https://github.com/austinulfers">austinulfers</a>
+      </p>
+
+      <p>Published with <a href="https://pages.github.com">GitHub Pages</a></p>
+    </footer>
+  </div>
+</body>
+
+</html>

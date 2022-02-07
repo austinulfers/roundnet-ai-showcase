@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+  <meta charset='utf-8'>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width,maximum-scale=2">
+  <link rel="stylesheet" type="text/css" media="screen"
+    href="/roundnet-ai-showcase/assets/css/style.css?v=6e0e03602ade8eb034b16f7fdf4fe3bfd2a74f07">
+
+  <!-- Begin Jekyll SEO tag v2.7.1 -->
+  <title>A First Look at Sports Analytics for the Sport of Roundnet | roundnet-ai-showcase</title>
+  <meta name="generator" content="Jekyll v3.9.0" />
+  <meta property="og:title" content="A First Look at Sports Analytics for the Sport of Roundnet" />
+  <meta property="og:locale" content="en_US" />
+  <meta name="description"
+    content="A pipeline for tracking sports analytics with machine learning techniques for the sport of roundnet." />
+  <meta property="og:description"
+    content="A pipeline for tracking sports analytics with machine learning techniques for the sport of roundnet." />
+  <link rel="canonical" href="https://austinulfers.github.io/roundnet-ai-showcase/" />
+  <meta property="og:url" content="https://austinulfers.github.io/roundnet-ai-showcase/" />
+  <meta property="og:site_name" content="roundnet-ai-showcase" />
+  <meta name="twitter:card" content="summary" />
+  <meta property="twitter:title" content="A First Look at Sports Analytics for the Sport of Roundnet" />
+  <script type="application/ld+json">
+{"description":"A pipeline for tracking sports analytics with machine learning techniques for the sport of roundnet.","url":"https://austinulfers.github.io/roundnet-ai-showcase/","@type":"WebSite","headline":"A First Look at Sports Analytics for the Sport of Roundnet","name":"roundnet-ai-showcase","@context":"https://schema.org"}</script>
+  <!-- End Jekyll SEO tag -->
+
+  <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+  <!-- Setup Google Analytics -->
+
+
+
+  <!-- You can set your favicon here -->
+  <!-- link rel="shortcut icon" type="image/x-icon" href="/roundnet-ai-showcase/favicon.ico" -->
+
+  <!-- end custom head snippets -->
+
+</head>
+
+<body>
+
+  <!-- HEADER -->
+  <div id="header_wrap" class="outer">
+    <header class="inner">
+
+      <a id="forkme_banner" href="https://github.com/austinulfers/roundnet-ai-showcase">View on GitHub</a>
+
+
+      <h1 id="project_title">roundnet-ai-showcase</h1>
+      <h2 id="project_tagline">A pipeline for tracking sports analytics with machine learning techniques for the sport
+        of roundnet.</h2>
+
+
+    </header>
+  </div>
+
+  <!-- MAIN CONTENT -->
+  <div id="main_content_wrap" class="outer">
+    <section id="main_content" class="inner">
+      <h1 id="a-first-look-at-sports-analytics-for-the-sport-of-roundnet">A First Look at Sports Analytics for
+        the Sport of Roundnet</h1>
+
+      <p>By: Austin Ulfers</p>
+
+      <p>Created: March 31st, 2020</p>
+
+      <h2 id="abstract">Abstract</h2>
+
+      <p>This paper acts as a proof of concept to track a roundnet ball within a video and recreate its path in real
+        time.
+        The procedures and methods implemented here are best implemented when the camera is directly above the net (i.e.
+        a drone) and moves as little as possible. Future iterations of this project will adapt to wider scenarios
+        however, at the moment, elementary information like ball hits/ball location/ball velocity within the game of
+        roundnet act as a proving ground for later developments.</p>
+
+      <h2 id="outline">Outline</h2>
+
+      <p>This document will follow one video as we progress through the methodology. Illustrations and captures of the
+        process will be outline along the way. Later in this document, I will cover the limitations as well as the
+        recommendations for future implementations of similar methods.</p>
+
+      <h2 id="introduction">Introduction</h2>
+
+      <p>As stated above, we are going to follow one video through this process of this entire paper. See the following
+        figure for the video that will be referenced. For the duration of this project, this video will be referred to
+        as <em>spike_1.mp4</em></p>
+
+      <p>The portion of the video that will be used is as follows.</p>
+
+      <blockquote>
+        <p>0:02-0:11</p>
+      </blockquote>
+
+      <p><a href="https://youtu.be/UXPjH3uk0Bs?t=2"><img src="/roundnet-ai-showcase/img/v1-open-cv/0.jpg"
+            alt="spike_1.mp4" /></a></p>
+
+      <p>The main reason why this project interested me so much was because of the nature of the roundnet scene.
+        Although the game of roundnet was invented in the late 1980s by Jeff Knurek, the Spikeball company has allowed
+        it to grow in immense popularity within the past several decades. Articles in ESPN have shed light on just how
+        popular the sport has become. With over 4 million players world wide, there is no doubt that roundnet is here
+        to stay.</p>
+
+      <p>One key element that many professional sports have is that they have a lot of game statistics. Since roundnet
+        is pretty new to this scene of professional sports, it makes sense why they have yet to implement anything of
+        this sort. However, after my mind got to thinking, I started brainstorming ways that I could utilize my data
+        science skills and start tracking some of these sports metrics.</p>
+
+      <p>I knew tracking metrics like speed of a serve and hit count in a match were things that were easily attainable
+        so I thought I would set out with those in mind. Below, I will demonstrate how I have implemented various
+        machine learning techniques to attain these goals.</p>
+
+      <h2 id="methodology">Methodology</h2>
+
+      <p>I knew I wanted Python to be the basis of this research. Although R could arguably be used here, I was
+        personally more familiar with Python and it’s packages at the start so that’s that we’ll use.</p>
+
+      <p>Here are a list of other python packages that were utilized for this research:</p>
+
+      <ul>
+        <li><strong>Jupyter Notebooks</strong>, for the ability of saving data from the scripts in memory.</li>
+        <li><strong>Pandas</strong>, for data manipulation and storage.</li>
+        <li><strong>Numpy</strong>, for math features and more data manipulation.</li>
+        <li><strong>PIL</strong>, for interacting with images.</li>
+        <li><strong>imutils</strong>, for array to image transformations.</li>
+        <li><strong>cv2</strong>, a strong library for image manipulation.</li>
+        <li><strong>matplotlib</strong>, for static visualizations.</li>
+        <li><strong>plotly</strong>, for visualizations with animations.</li>
+      </ul>
+
+      <h3 id="1-splicing-the-video">1. Splicing the Video</h3>
+
+      <p>Since we are working with a video for this project, the important first step is to split it into frames so that
+        we are working with a 2D array of pixel values rather than 3D. For the sake of making this easier to comprehend,
+        I will use the below frame of the video as reference for part of this methodology. It occurs around 0:02 into
+        the video or the 72nd frame if you spliced the video exactly as I did.This figure was chosen because it has a
+        good representation of the ball and there is a clear view of the net.</p>
+
+      <p>It is also important to note that while these diagram only pertains to one image, by reading through a video,
+        frame by frame, we are able to perform this exact same analysis repititavely.</p>
+
+      <p><img src="/roundnet-ai-showcase/img/v1-open-cv/spike_1_img.png" alt="Frame 72" /></p>
+
+      <p>It is important to not make this image greyscale on import. Since most of our tracking is based off the color
+        of the ball, we need the values associated with each pixel.</p>
+
+      <h3 id="2-thresholding">2. Thresholding</h3>
+
+      <p>After we have loaded the currently frame, our next task is to establish a threshold within the image. While
+        this can be performed in many different ways, resources online encouraged shifting the color format to
+        <em>HSV</em> instead of the imported version of <em>BGR</em>. This allows for an easier range of values to be
+        established in comparison to BGR. This was done using OpenCV’s <code
+          class="language-plaintext highlighter-rouge">cv2.cvtColor(img, cv2.COLOR_BGR2HSV)</code> command. This
+        converted the colorscape of the image to be better processed in the next part of thresholding. Below is the
+        image representation of the HSV landscaped version of the above image.
+      </p>
+
+      <p><img src="/roundnet-ai-showcase/img/v1-open-cv/spike_1_hsv.jpg" alt="HSV Image" /></p>
+
+      <p>Now that the image is converted to HSV format, now we just need to threshold. This would be performed using
+        OpenCV’s <code class="language-plaintext highlighter-rouge">cv2.inRange()</code> function. Using this function
+        you are able to pass in a range of HSV values in order to threshold the image based off that range of colors.
+        Although the specific colors within videos and images can range camera and lighting scenario, for the above
+        photo, I found that the following ranges worked best for isolating the ball and net from the rest of the noise
+        within the image. I would anticipate that slight adjustments to the lower and upper bounds would be
+        encouraged/nesessary in order to improve performace and accuracy on later videos.</p>
+
+      <div class="language-python highlighter-rouge">
+        <div class="highlight">
+          <pre class="highlight"><code><span class="c1"># Define range of color in HSV
+</span><span class="n">lower</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">array</span><span class="p">([</span><span class="mi">20</span><span class="p">,</span> <span class="mi">105</span><span class="p">,</span> <span class="mi">105</span><span class="p">])</span>
+<span class="n">upper</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">array</span><span class="p">([</span><span class="mi">35</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">255</span><span class="p">])</span>
+</code></pre>
+        </div>
+      </div>
+
+      <p>Now that the upper and lower color bounds have been specified, it is now time to perform the threshold using
+        the command <code class="language-plaintext highlighter-rouge">cv2.inRange(hsv, lower, upper)</code>. Altough
+        perhaps a bit on the cautious side, I like to utilize OpenCV’s <code
+          class="language-plaintext highlighter-rouge">cs2.dialte()</code> and <code
+          class="language-plaintext highlighter-rouge">cv2.erode()</code> functions in order to remove some potential
+        noise from the thresholded image. Once this is all done, we should get a masked image like this.</p>
+
+      <p><img src="/roundnet-ai-showcase/img/v1-open-cv/frame72.jpg" alt="Masked Image" /></p>
+
+      <h3 id="3-locating-the-contours">3. Locating the Contours</h3>
+
+      <p>Within this image, we can see 2 things. First we can see the ball that appears in the position that we would
+        expect. We are also able to see where the net is based off the remaining 5 white marks within the image. From
+        this masked image, we are now able to perform a contour analysis in order to get the location data for each of
+        these marks.</p>
+
+      <p>To do this we will perform a standard procedure for getting the countours from a masked image.</p>
+
+      <div class="language-python highlighter-rouge">
+        <div class="highlight">
+          <pre class="highlight"><code><span class="n">cnts</span> <span class="o">=</span> <span class="n">cv2</span><span class="p">.</span><span class="n">findContours</span><span class="p">(</span><span class="n">edged</span><span class="p">.</span><span class="n">copy</span><span class="p">(),</span> <span class="n">cv2</span><span class="p">.</span><span class="n">RETR_EXTERNAL</span><span class="p">,</span> <span class="n">cv2</span><span class="p">.</span><span class="n">CHAIN_APPROX_SIMPLE</span><span class="p">)</span>
+<span class="n">cnts</span> <span class="o">=</span> <span class="n">imutils</span><span class="p">.</span><span class="n">grab_contours</span><span class="p">(</span><span class="n">cnts</span><span class="p">)</span>
+</code></pre>
+        </div>
+      </div>
+
+      <p>For each contour we are now able to get metrics like the center coordinates of each contour. Now that we can
+        track each contour, we are now able to do some filtering to remove noise and perform some math to determine
+        which contour is the ball and which other contours are the net. One easy way that I have found to reduce small
+        noise that may occur is just setting the minimum contour size. Although this will change based on how far away
+        the camera is from the net, I took the mean of the net contours and subtract an arbitrary 25% so that we could
+        only see consistently sized net contours.</p>
+
+      <p><img src="/roundnet-ai-showcase/img/v1-open-cv/math/x_bar.png" alt="Equation" /></p>
+
+      <p><img src="/roundnet-ai-showcase/img/v1-open-cv/math/m.png" alt="Equation" /></p>
+
+      <p>Once we have removed the noise, our next task is to figure out which contour is the ball and which are the net.
+        The easiest way that I found based off the images that I had was to just utilize the contour that has the
+        largest area amonst the various contours. Finding the area from a conour is just calling the function <code
+          class="language-plaintext highlighter-rouge">cv2.contourArea(c)</code>.</p>
+
+      <p>Now that we have established which contours are the ball, which are the net, and where they all are, we are now
+        ready to move on. However, one last metric that we need to calculate is the center of the net based off the net
+        contours. This can be done several different ways depending on how you structure your contours. Mathmatically
+        speaking, the center of five net contour points is just going to be the mean of every $X$ and $Y$ value.</p>
+
+      <p><img src="/roundnet-ai-showcase/img/v1-open-cv/math/c_x_bar_net.png" alt="Equation" /></p>
+
+      <p><img src="/roundnet-ai-showcase/img/v1-open-cv/math/c_y_bar_net.png" alt="Equation" /></p>
+
+      <p>However, I stored my data in a table so that each contour had it’s <em>area, cX, cY, is_ball</em> values are
+        stored within a dataframe. An example one for would have the following structure. It is important to remember
+        that within <code class="language-plaintext highlighter-rouge">(0,0)</code> is the top left of the screen.</p>
+
+      <table>
+        <thead>
+          <tr>
+            <th>df</th>
+            <th>area</th>
+            <th>cX</th>
+            <th>cY</th>
+            <th>is_ball</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>1</strong></td>
+            <td>28</td>
+            <td>659</td>
+            <td>401</td>
+            <td>True</td>
+          </tr>
+          <tr>
+            <td><strong>2</strong></td>
+            <td>31</td>
+            <td>609</td>
+            <td>327</td>
+            <td>False</td>
+          </tr>
+          <tr>
+            <td><strong>3</strong></td>
+            <td>30</td>
+            <td>606</td>
+            <td>328</td>
+            <td>False</td>
+          </tr>
+          <tr>
+            <td><strong>4</strong></td>
+            <td>28</td>
+            <td>663</td>
+            <td>314</td>
+            <td>False</td>
+          </tr>
+          <tr>
+            <td><strong>5</strong></td>
+            <td>29</td>
+            <td>695</td>
+            <td>358</td>
+            <td>False</td>
+          </tr>
+          <tr>
+            <td><strong>6</strong></td>
+            <td>173</td>
+            <td>735</td>
+            <td>150</td>
+            <td>True</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p>Setting up the objects in the way allows us to groupby the result set through the <code
+          class="language-plaintext highlighter-rouge">is_ball</code> column. Using a function similar to the following,
+        we are able to find the center of the net and prepare our data for export in one easy go.</p>
+
+      <div class="language-python highlighter-rouge">
+        <div class="highlight">
+          <pre class="highlight"><code><span class="n">df</span><span class="p">.</span><span class="n">groupby</span><span class="p">(</span><span class="s">'is_ball'</span><span class="p">).</span><span class="n">mean</span><span class="p">()</span>
+</code></pre>
+        </div>
+      </div>
+
+      <p>This partnered with a couple more lines of code in order to flatten out the result gives us the following
+        table. This section is now complete for this frame. We can now append this data to a larger dataframe and move
+        onto the next frame.</p>
+
+      <table>
+        <thead>
+          <tr>
+            <th>df2</th>
+            <th>mean_net_area</th>
+            <th>net_x</th>
+            <th>net_y</th>
+            <th>ball_area</th>
+            <th>ball_x</th>
+            <th>ball_y</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>1</strong></td>
+            <td>29.1</td>
+            <td>646.4</td>
+            <td>355.6</td>
+            <td>173</td>
+            <td>735</td>
+            <td>150</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3 id="4-comparing-frames">4. Comparing Frames</h3>
+
+      <p>Once we have viewed all the frames and saved the data, we are now able to do some data analysis on the results
+        that we’ve found. For this project, I chose to export all the data to a csv but this could all be easily added
+        to a database instead if that where a part of the project requirements. I plan on incorporating exactly this in
+        future iterations of this project.</p>
+
+      <p>Since the main topic for this research was tracking the ball, lets start with that. Since we already have the
+        $x$ and $y$ values for the ball during each frame during the video, this will be easy enough to plot on a graph.
+        Using a scatter plot we can plot these frames on a single graph that can represent the entire video. It is
+        important to remember here that the y-axis starts at the top left for the frames instead of the bottom left,
+        which is a common conception for most python library graphing packages.</p>
+
+      <p>The <code class="language-plaintext highlighter-rouge">invert_yaxis()</code> function worked for me to do just
+        this.</p>
+
+      <p><img src="/roundnet-ai-showcase/img/v1-open-cv/ball_xy.jpg" alt="Ball Location" /></p>
+
+      <p>The other metric that I focused on for this research was the ball’s velocity. I thought it could be an
+        interesting metric to track as most sports have the speed of the ball as something that is relevant. Since we
+        have the pixel position of both the center of the ball as well as the net, we can use the roundnet net as a
+        refernce how how far the ball is traveling.</p>
+
+      <p>Before we move forward this this step, it is crucial to understand some information about the video. Here are
+        some important constants to understand:</p>
+
+      <ol>
+        <li>The diameter of the roundnet net is 23 inches</li>
+        <li>The pixel length diamter of the roundnet net on each frame is rougly 90</li>
+        <li>The video frame rate is 30 frames per second.</li>
+      </ol>
+
+      <p>With these constants in mind, we can now start to do some computations on the metrics we have to determine the
+        velocity of the ball. Below, you can find the mathmatical equations as well as the python code that can be
+        implemented for any one row of the data/any one frame.</p>
+
+      <p><img src="/roundnet-ai-showcase/img/v1-open-cv/math/d_pi_net.png" alt="Equation" /> = diamter of the net in
+        pixels<br />
+        <img src="/roundnet-ai-showcase/img/v1-open-cv/math/r.png" alt="Equation" /> = frame rate of the video
+      </p>
+
+      <p><img src="/roundnet-ai-showcase/img/v1-open-cv/math/pr.png" alt="Equation" /></p>
+
+      <p><img src="/roundnet-ai-showcase/img/v1-open-cv/math/delta_x_pi_i.png" alt="Equation" /></p>
+
+      <p><img src="/roundnet-ai-showcase/img/v1-open-cv/math/delta_x_mi_i.png" alt="Equation" /></p>
+
+      <p><img src="/roundnet-ai-showcase/img/v1-open-cv/math/t_h_i.png" alt="Equation" /></p>
+
+      <p><img src="/roundnet-ai-showcase/img/v1-open-cv/math/v_mph_i.png" alt="Equation" /></p>
+
+      <p>Here is the graph when we plot this velocity by frame of the video.</p>
+
+      <p><img src="/roundnet-ai-showcase/img/v1-open-cv/mph_frame.jpg" alt="Speed Graph over Time" /></p>
+
+      <p>From this graph we are able to learn a little bit about what’s going on. However, before we can get there, we
+        can see some issues within the graph. The main issue is that for some frames we have a velocity of 0. This
+        creates a graph where we see spikes of velocity and other times no movement.</p>
+
+      <p>One way we are able to get past this is to average this velocity over several frames to get the speed the ball
+        is traveling. After looking back at some of the frames within the video, it is clear that the ball doesn’t
+        change position within some of the frames. While I’m not exactly sure why this is happening, it appears to be a
+        pretty consistent occurance which suggests to me that the original video is something like 24 or 25 frames per
+        second and when I downloaded it, it defaulted it to 30 and filled the empty frames with duplicates from prior
+        frames.</p>
+
+      <p>To solve this issue, there are two potential course of actions. We can remove the empty frames and act as if
+        the video occured in the adjusted frame rates, or we can average the still frames from the frame before and the
+        frame after and use that as the ball’s data within that frame. While there are pros and cons to both of these
+        techniques, it is suggested that you just redownload the video in the original frame rate and repreform the
+        calculations.</p>
+
+      <p>Since I don’t have the option to redownload in a different frame rate, I am going to chose the option of
+        averaging the still frames from the one before and after. While not perfect, it does a good enough job while
+        still retaining the true time associated to each frame of the video.</p>
+
+      <p>So, now that we have decided a route to go down and have adjusted our data to reflect the averaged information
+        from the surrounding frames, it is now time to calculate the speed at each given frame. The best way to do this
+        is to take the average of the velocity from the previous frames and call that the speed at the current frame.
+        Now the question becomes: how many prior frames are worth averaging to get the best result. While this can be a
+        case by case question, I chose this value to be 5 in order to minimize the overlap from the still frames. The
+        following formula can be used to calculate any frame’s speed.</p>
+
+      <p><img src="/roundnet-ai-showcase/img/v1-open-cv/math/v_bar_mph.png" alt="Equation" /></p>
+
+      <p>With this more averaged out data, our averaged speed over time graph looks something a little like this.</p>
+
+      <p><img src="/roundnet-ai-showcase/img/v1-open-cv/mph_avg_frame.jpg" alt="Averaged Speed Graph over Time" /></p>
+
+      <h2 id="results">Results</h2>
+
+      <p>By combining the two previous graphs together, we are able to see the ball being tracked over time with the
+        speed and location of the ball.</p>
+
+      <p><img src="/roundnet-ai-showcase/img/v1-open-cv/spike_1-plotly.gif" alt="Ball Location with Averaged Speed" />
+      </p>
+
+      <p>From the velocity graph, we can now see where every hit is located. Whenever there is a local minimum, we can
+        confidently say someone hit the ball. Based off this next figure we can see that there were indeed 7 hits within
+        this match.</p>
+
+      <p><img src="/roundnet-ai-showcase/img/v1-open-cv/mph_avg_frame_alt.jpg"
+          alt="Averaged Speed Graph over Time with Hit Markers" /></p>
+
+      <h2 id="recommendations">Recommendations</h2>
+
+      <p>Since this is mainly just a proof of concept, there are both a ton of recommendations and limitations with this
+        pipeline that have been created this far. I will start with the improvements that will discuss the limitations
+        following.</p>
+
+      <p>With some more analysis and work:</p>
+
+      <ul>
+        <li>Serving speed</li>
+        <li>Hit speed by player</li>
+        <li>Categorizing types of serves and their success rates against different players</li>
+        <li>Indiviudal player stats</li>
+        <li>Tracking players throughout the course of a match</li>
+        <li>This process performed in real time</li>
+        <li>All data uploaded to a database</li>
+        <li>API creation for uploading and retrieving data</li>
+      </ul>
+
+      <h2 id="limitations">Limitations</h2>
+
+      <ul>
+        <li>The current program asssigns the ball to the contour with the maximum area. However, when the ball goes
+          offscreen, the frame should count just as having no ball instead.</li>
+        <li>Sometimes, the ball is smaller than the 5 net pieces that are captured so the ball jumps to an incorrect
+          location.</li>
+        <li>The center of the net is off if a player is covering a net contour piece.</li>
+        <li>Program should be able to see where the location of the ball was a frame or two before in order to estimate
+          where the ball will go next.</li>
+        <li>Current video only shows concept on sand, no other terrain have been tested yet.</li>
+        <li>Program will get confused if any player is wearing the same color as the roundnet ball.</li>
+        <li>Drone will move around slightly and the current version does nothing to compensate for these small
+          movements.</li>
+        <li>Velocity that is derived here is only one a 2D plane, however, in reality, there is a vertical axis as well
+          that is unaccounted for currently. More linear kinematics physics will be required here.</li>
+        <li>No current code has been written to find the local minimums on the velocity over time graph.</li>
+        <li>Lower and upper colors bounds will shift depending on the lighting condition within the scene.</li>
+      </ul>
+
+      <h2 id="conclusion">Conclusion</h2>
+
+      <p>Although the list of limitations may seem daunting, this paper has been able to shed some light on the future
+        capabilites of this current work. As evident from the popularity of roundnet in recent years along with the
+        desire for the sport to continue to grow. Match and player analytics are an important next step that is required
+        to elevate the sport to the next level. Implementing this procedure into a broader pipeline could fulfill a lot
+        of these desires and has the potential to expand roundnet in an area that currently remains to be discovered.
+      </p>
+
+      <h2 id="references">References</h2>
+
+      <ol>
+        <li><a href="https://youtu.be/UXPjH3uk0Bs?t=2"><em>“Incredible Aerial Footage of Roundnet”</em></a> Created
+          2015-08-17.</li>
+        <li>
+          <p><a href="https://rcgcspring2016journalism.wordpress.com/2016/04/05/a-spike-in-interest/"><em>“A Spike In
+                Interest”</em></a> Created 2016-05-16</p>
+        </li>
+        <li>
+          <p><a href="https://www.espn.com/espn/story/_/id/23915064/how-spikeball-became-mainstream"><em>“How Spikeball
+                Became Mainstream”</em></a> Created 2018-07-04</p>
+        </li>
+        <li>
+          <p><a href="https://www.pyimagesearch.com/2015/09/14/ball-tracking-with-opencv/"><em>“Ball Tracking with
+                OpenCV”</em></a> Created 2015-09-14</p>
+        </li>
+        <li>
+          <p><a
+              href="https://opencv-python-tutroals.readthedocs.io/en/latest/py_tutorials/py_imgproc/py_colorspaces/py_colorspaces.html"><em>“Changing
+                Colorspaces”</em></a> Retrieved 2020-03-25</p>
+        </li>
+        <li>
+          <p><a href="https://www.pyimagesearch.com/2016/02/01/opencv-center-of-contour/"><em>“OpenCV Center of
+                Countour”</em></a> Created 2016-02-01</p>
+        </li>
+        <li><a href="https://support.spikeball.com/article/219-what-are-the-dimensions-of-the-spikeball-set"><em>“Spikeball
+              Set Dimensions”</em></a> Updated 2020-02-27</li>
+      </ol>
+
+    </section>
+  </div>
+
+  <!-- FOOTER  -->
+  <div id="footer_wrap" class="outer">
+    <footer class="inner">
+
+      <p class="copyright">roundnet-ai-showcase maintained by <a href="https://github.com/austinulfers">austinulfers</a>
+      </p>
+
+      <p>Published with <a href="https://pages.github.com">GitHub Pages</a></p>
+    </footer>
+  </div>
+</body>
+
+</html>
