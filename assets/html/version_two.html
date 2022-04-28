@@ -174,8 +174,7 @@
 
       <p>The roboflow training graphs can be seen in <em>Figure 1</em>.</p>
 
-      <p><img src="/roundnet-ai-showcase/img/v2-faster_r-cnn/roboflow/roboflow_metrics_training_graphs.png"
-          alt="Roboflow Training Graphs" />
+      <p><img src="/img/v2-faster_r-cnn/roboflow/roboflow_metrics_training_graphs.png" alt="Roboflow Training Graphs" />
         <em>Figure 1: Roboflow training graphs.</em>
       </p>
 
@@ -194,10 +193,8 @@
         tuning.
       </p>
 
-      <p><img src="/roundnet-ai-showcase/img/v2-faster_r-cnn/detectron2/accuracy.png"
-          alt="Tensorboard Detectron2 Model Performance" />
-        <img src="/roundnet-ai-showcase/img/v2-faster_r-cnn/detectron2/loss.png"
-          alt="Tensorboard Detectron2 Model Total Loss" />
+      <p><img src="/img/v2-faster_r-cnn/detectron2/accuracy.png" alt="Tensorboard Detectron2 Model Performance" />
+        <img src="/img/v2-faster_r-cnn/detectron2/loss.png" alt="Tensorboard Detectron2 Model Total Loss" />
       </p>
 
       <p><em>Figure 2: Various measurements from the detectron2 training of 3000 epochs.</em></p>
@@ -210,7 +207,7 @@
       <p>Below is a low resolution gif of the sample video. However, a full resolution video can be found on YouTube
         here. <a href="https://www.youtube.com/watch?v=kgmbi1J97FA">https://www.youtube.com/watch?v=kgmbi1J97FA</a></p>
 
-      <p><img src="/roundnet-ai-showcase/img/v2-faster_r-cnn/IMG_1895_Trim.gif" alt="Sample Video" /></p>
+      <p><img src="/img/v2-faster_r-cnn/IMG_1895_Trim.gif" alt="Sample Video" /></p>
 
       <p><em>Figure 3: Sample video in gif format.</em></p>
 
@@ -235,8 +232,7 @@
           href="https://www.youtube.com/watch?v=VIlFG7NpFNk">https://www.youtube.com/watch?v=VIlFG7NpFNk</a>. Anything
         with a blue bounding box is a roundnet ball and anything with a red bounding box is a Net.</p>
 
-      <p><img src="/roundnet-ai-showcase/img/v2-faster_r-cnn/IMG_1895_Trim_labeled.gif"
-          alt="Sample Video with Inferences" /></p>
+      <p><img src="/img/v2-faster_r-cnn/IMG_1895_Trim_labeled.gif" alt="Sample Video with Inferences" /></p>
 
       <p><em>Figure 4: Sampled video with object detection inferences.</em></p>
 
@@ -259,8 +255,7 @@
         This gives a three-dimensional view where the X and Y axes are their respective pixel positions on the camera
         and the Z axis is the frame number.</p>
 
-      <p><img src="/roundnet-ai-showcase/img/v2-faster_r-cnn/starting_actives_no_color.png"
-          alt="Identifying the Active Ball" /></p>
+      <p><img src="/img/v2-faster_r-cnn/starting_actives_no_color.png" alt="Identifying the Active Ball" /></p>
 
       <p><em>Figure 5: A three dimensional view of all balls and their positions within the first 90 frames of the
           sample video.</em></p>
@@ -268,8 +263,7 @@
       <p>I then use the DBSCAN clustering model [<em>7</em>] from scikit-learn to cluster these points into distinct
         groupings as seen in <em>Figure 6</em>.</p>
 
-      <p><img src="/roundnet-ai-showcase/img/v2-faster_r-cnn/starting_actives.png"
-          alt="DBSCAN Clustering on starting roundnet balls" /></p>
+      <p><img src="/img/v2-faster_r-cnn/starting_actives.png" alt="DBSCAN Clustering on starting roundnet balls" /></p>
 
       <p><em>Figure 6: Three clusters identified using DBSCAN within the first 90 frames.</em></p>
 
@@ -288,8 +282,7 @@
         connected. In addition, I also had one object I called a trail that always kept track of the first and last
         nodes in the doubly linked list as seen below.</p>
 
-      <p><img src="/roundnet-ai-showcase/img/v2-faster_r-cnn/trail_linked_list.png"
-          alt="Doubly Linked List with Trail Head" /></p>
+      <p><img src="/img/v2-faster_r-cnn/trail_linked_list.png" alt="Doubly Linked List with Trail Head" /></p>
 
       <p><em>Figure 7: The doubly linked list data structure with an attached trail object used to keep track of the
           first and last nodes.</em></p>
@@ -324,8 +317,7 @@
       <p>The first step is performed through two independent quadratic regression models, one for the X value and one
         for the Y value. For both models, the frame number is used as the independent variable.</p>
 
-      <p><img src="/roundnet-ai-showcase/img/v2-faster_r-cnn/xy_predicted.png"
-          alt="Predicting Future Object Location" /></p>
+      <p><img src="/img/v2-faster_r-cnn/xy_predicted.png" alt="Predicting Future Object Location" /></p>
 
       <p><em>Figure 8: By fitting the regression model to the past X frames, we can predict ahead to estimate where the
           future location of the ball will be by combining the results of the x and y regression models.</em></p>
@@ -343,8 +335,7 @@
         YouTube here. <a
           href="https://www.youtube.com/watch?v=3uQqHJMAisI">https://www.youtube.com/watch?v=3uQqHJMAisI</a></p>
 
-      <p><img src="/roundnet-ai-showcase/img/v2-faster_r-cnn/IMG_1895_Trim_tracked.gif"
-          alt="Sample Video with Tracked Actived Ball" /></p>
+      <p><img src="/img/v2-faster_r-cnn/IMG_1895_Trim_tracked.gif" alt="Sample Video with Tracked Actived Ball" /></p>
 
       <p><em>Figure 9: The tracked location of the active ball within the sample video with overlaying informational
           graphics.</em></p>
@@ -370,14 +361,13 @@
       <p>In addition to this exported video, I created several other graphics that I thought were helpful in supplying
         additional information to the end results.</p>
 
-      <p><img src="/roundnet-ai-showcase/img/v2-faster_r-cnn/active_ball_position.png"
+      <p><img src="/img/v2-faster_r-cnn/active_ball_position.png"
           alt="Single Dimension Reconstruction for Active Ball Position" /></p>
 
       <p><em>Figure 10: The active ball position tracked on a line plot. Both for over time in each respective dimension
           and once combined.</em></p>
 
-      <p><img src="/roundnet-ai-showcase/img/v2-faster_r-cnn/3d_reconstruction.gif"
-          alt="Gif of the Attempted 3D Reconstruction" /></p>
+      <p><img src="/img/v2-faster_r-cnn/3d_reconstruction.gif" alt="Gif of the Attempted 3D Reconstruction" /></p>
 
       <p><em>Figure 11: A 3D reconstruction attempt using a rolling average of the hypotenuse of the active ball’s
           bounding box as the Z dimension. The color of the scatter points corresponds to the frame number so that the
@@ -398,7 +388,7 @@
         experience can be found here. <a
           href="https://www.youtube.com/watch?v=gk-UUunQf08">https://www.youtube.com/watch?v=gk-UUunQf08</a></p>
 
-      <p><img src="/roundnet-ai-showcase/img/v2-faster_r-cnn/app_screenshot.png" alt="Streamlit Application" /></p>
+      <p><img src="/img/v2-faster_r-cnn/app_screenshot.png" alt="Streamlit Application" /></p>
 
       <h2 id="improvements">Improvements</h2>
 

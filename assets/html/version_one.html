@@ -93,8 +93,7 @@
         <p>0:02-0:11</p>
       </blockquote>
 
-      <p><a href="https://youtu.be/UXPjH3uk0Bs?t=2"><img src="/roundnet-ai-showcase/img/v1-open-cv/0.jpg"
-            alt="spike_1.mp4" /></a></p>
+      <p><a href="https://youtu.be/UXPjH3uk0Bs?t=2"><img src="/img/v1-open-cv/0.jpg" alt="spike_1.mp4" /></a></p>
 
       <p>The main reason why this project interested me so much was because of the nature of the roundnet scene.
         Although the game of roundnet was invented in the late 1980s by Jeff Knurek, the Spikeball company has allowed
@@ -140,7 +139,7 @@
       <p>It is also important to note that while these diagram only pertains to one image, by reading through a video,
         frame by frame, we are able to perform this exact same analysis repititavely.</p>
 
-      <p><img src="/roundnet-ai-showcase/img/v1-open-cv/spike_1_img.png" alt="Frame 72" /></p>
+      <p><img src="/img/v1-open-cv/spike_1_img.png" alt="Frame 72" /></p>
 
       <p>It is important to not make this image greyscale on import. Since most of our tracking is based off the color
         of the ball, we need the values associated with each pixel.</p>
@@ -156,7 +155,7 @@
         image representation of the HSV landscaped version of the above image.
       </p>
 
-      <p><img src="/roundnet-ai-showcase/img/v1-open-cv/spike_1_hsv.jpg" alt="HSV Image" /></p>
+      <p><img src="/img/v1-open-cv/spike_1_hsv.jpg" alt="HSV Image" /></p>
 
       <p>Now that the image is converted to HSV format, now we just need to threshold. This would be performed using
         OpenCV’s <code class="language-plaintext highlighter-rouge">cv2.inRange()</code> function. Using this function
@@ -182,7 +181,7 @@
           class="language-plaintext highlighter-rouge">cv2.erode()</code> functions in order to remove some potential
         noise from the thresholded image. Once this is all done, we should get a masked image like this.</p>
 
-      <p><img src="/roundnet-ai-showcase/img/v1-open-cv/frame72.jpg" alt="Masked Image" /></p>
+      <p><img src="/img/v1-open-cv/frame72.jpg" alt="Masked Image" /></p>
 
       <h3 id="3-locating-the-contours">3. Locating the Contours</h3>
 
@@ -208,9 +207,9 @@
         the camera is from the net, I took the mean of the net contours and subtract an arbitrary 25% so that we could
         only see consistently sized net contours.</p>
 
-      <p><img src="/roundnet-ai-showcase/img/v1-open-cv/math/x_bar.png" alt="Equation" /></p>
+      <p><img src="/img/v1-open-cv/math/x_bar.png" alt="Equation" /></p>
 
-      <p><img src="/roundnet-ai-showcase/img/v1-open-cv/math/m.png" alt="Equation" /></p>
+      <p><img src="/img/v1-open-cv/math/m.png" alt="Equation" /></p>
 
       <p>Once we have removed the noise, our next task is to figure out which contour is the ball and which are the net.
         The easiest way that I found based off the images that I had was to just utilize the contour that has the
@@ -222,9 +221,9 @@
         contours. This can be done several different ways depending on how you structure your contours. Mathmatically
         speaking, the center of five net contour points is just going to be the mean of every $X$ and $Y$ value.</p>
 
-      <p><img src="/roundnet-ai-showcase/img/v1-open-cv/math/c_x_bar_net.png" alt="Equation" /></p>
+      <p><img src="/img/v1-open-cv/math/c_x_bar_net.png" alt="Equation" /></p>
 
-      <p><img src="/roundnet-ai-showcase/img/v1-open-cv/math/c_y_bar_net.png" alt="Equation" /></p>
+      <p><img src="/img/v1-open-cv/math/c_y_bar_net.png" alt="Equation" /></p>
 
       <p>However, I stored my data in a table so that each contour had it’s <em>area, cX, cY, is_ball</em> values are
         stored within a dataframe. An example one for would have the following structure. It is important to remember
@@ -342,7 +341,7 @@
       <p>The <code class="language-plaintext highlighter-rouge">invert_yaxis()</code> function worked for me to do just
         this.</p>
 
-      <p><img src="/roundnet-ai-showcase/img/v1-open-cv/ball_xy.jpg" alt="Ball Location" /></p>
+      <p><img src="/img/v1-open-cv/ball_xy.jpg" alt="Ball Location" /></p>
 
       <p>The other metric that I focused on for this research was the ball’s velocity. I thought it could be an
         interesting metric to track as most sports have the speed of the ball as something that is relevant. Since we
@@ -362,24 +361,24 @@
         velocity of the ball. Below, you can find the mathmatical equations as well as the python code that can be
         implemented for any one row of the data/any one frame.</p>
 
-      <p><img src="/roundnet-ai-showcase/img/v1-open-cv/math/d_pi_net.png" alt="Equation" /> = diamter of the net in
+      <p><img src="/img/v1-open-cv/math/d_pi_net.png" alt="Equation" /> = diamter of the net in
         pixels<br />
-        <img src="/roundnet-ai-showcase/img/v1-open-cv/math/r.png" alt="Equation" /> = frame rate of the video
+        <img src="/img/v1-open-cv/math/r.png" alt="Equation" /> = frame rate of the video
       </p>
 
-      <p><img src="/roundnet-ai-showcase/img/v1-open-cv/math/pr.png" alt="Equation" /></p>
+      <p><img src="/img/v1-open-cv/math/pr.png" alt="Equation" /></p>
 
-      <p><img src="/roundnet-ai-showcase/img/v1-open-cv/math/delta_x_pi_i.png" alt="Equation" /></p>
+      <p><img src="/img/v1-open-cv/math/delta_x_pi_i.png" alt="Equation" /></p>
 
-      <p><img src="/roundnet-ai-showcase/img/v1-open-cv/math/delta_x_mi_i.png" alt="Equation" /></p>
+      <p><img src="/img/v1-open-cv/math/delta_x_mi_i.png" alt="Equation" /></p>
 
-      <p><img src="/roundnet-ai-showcase/img/v1-open-cv/math/t_h_i.png" alt="Equation" /></p>
+      <p><img src="/img/v1-open-cv/math/t_h_i.png" alt="Equation" /></p>
 
-      <p><img src="/roundnet-ai-showcase/img/v1-open-cv/math/v_mph_i.png" alt="Equation" /></p>
+      <p><img src="/img/v1-open-cv/math/v_mph_i.png" alt="Equation" /></p>
 
       <p>Here is the graph when we plot this velocity by frame of the video.</p>
 
-      <p><img src="/roundnet-ai-showcase/img/v1-open-cv/mph_frame.jpg" alt="Speed Graph over Time" /></p>
+      <p><img src="/img/v1-open-cv/mph_frame.jpg" alt="Speed Graph over Time" /></p>
 
       <p>From this graph we are able to learn a little bit about what’s going on. However, before we can get there, we
         can see some issues within the graph. The main issue is that for some frames we have a velocity of 0. This
@@ -409,26 +408,25 @@
         case by case question, I chose this value to be 5 in order to minimize the overlap from the still frames. The
         following formula can be used to calculate any frame’s speed.</p>
 
-      <p><img src="/roundnet-ai-showcase/img/v1-open-cv/math/v_bar_mph.png" alt="Equation" /></p>
+      <p><img src="/img/v1-open-cv/math/v_bar_mph.png" alt="Equation" /></p>
 
       <p>With this more averaged out data, our averaged speed over time graph looks something a little like this.</p>
 
-      <p><img src="/roundnet-ai-showcase/img/v1-open-cv/mph_avg_frame.jpg" alt="Averaged Speed Graph over Time" /></p>
+      <p><img src="/img/v1-open-cv/mph_avg_frame.jpg" alt="Averaged Speed Graph over Time" /></p>
 
       <h2 id="results">Results</h2>
 
       <p>By combining the two previous graphs together, we are able to see the ball being tracked over time with the
         speed and location of the ball.</p>
 
-      <p><img src="/roundnet-ai-showcase/img/v1-open-cv/spike_1-plotly.gif" alt="Ball Location with Averaged Speed" />
+      <p><img src="/img/v1-open-cv/spike_1-plotly.gif" alt="Ball Location with Averaged Speed" />
       </p>
 
       <p>From the velocity graph, we can now see where every hit is located. Whenever there is a local minimum, we can
         confidently say someone hit the ball. Based off this next figure we can see that there were indeed 7 hits within
         this match.</p>
 
-      <p><img src="/roundnet-ai-showcase/img/v1-open-cv/mph_avg_frame_alt.jpg"
-          alt="Averaged Speed Graph over Time with Hit Markers" /></p>
+      <p><img src="/img/v1-open-cv/mph_avg_frame_alt.jpg" alt="Averaged Speed Graph over Time with Hit Markers" /></p>
 
       <h2 id="recommendations">Recommendations</h2>
 
