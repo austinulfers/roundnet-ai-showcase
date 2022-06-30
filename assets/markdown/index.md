@@ -1,8 +1,10 @@
-# Landing Page
+![Roundnet AI Horizontal Logo](/img/logos/Roundnet%20AI%20Logo_Horz_Blk.png)
 
-This page holds all of the updates that have to do with the roundnet-ai-showcase project. The latest post can be seen at the top.
+### The tool that automatically allows you to track scoring, player & team stats, and train your serves like you've never been able to before.
 
-# Entries
+# Coming Summer 2023
+
+# Updates
 
 ## Using a Faster R-CNN Deep Neural Network to Track Objects for the Sport of Roundnet.
 
