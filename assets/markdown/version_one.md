@@ -2,7 +2,7 @@
 
 By: Austin Ulfers
 
-Created: March 31st, 2020
+Published: March 31st, 2020
 
 ## Abstract
 
