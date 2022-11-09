@@ -73,7 +73,7 @@
 
       <p>By: Austin Ulfers</p>
 
-      <p>Published:</p>
+      <p>Published: November 8th, 2022</p>
 
       <h2 id="preface">Preface:</h2>
 
@@ -124,7 +124,7 @@
         later section of this update, I will go over how I managed to link different person_ids to the same player and
         why that was in some instances a good and others a bad idea.</p>
 
-      <p><img src="img/v3-analytics/Analyzed_Video.gif" alt="Analyzed Video" /></p>
+      <p><img src="/img/v3-analytics/Analyzed_Video.gif" alt="Analyzed Video" /></p>
 
       <p>If you would like to view the full game, please view it on YouTube here https://youtu.be/Qg9kWJCAgeE.</p>
 
@@ -136,37 +136,37 @@
       <div class="language-plaintext highlighter-rouge">
         <div class="highlight">
           <pre class="highlight"><code>"Player 1": {
-          ...
-          "Hitting RPR": 10.6,            # 17.1
-          "Serving RPR": 17,              # 17.8
-          "Defense RPR": 33.9,            # 16.7
-          "Efficiency RPR": 20.0,         # 20
-          "Ranked Player Rating": 128,    # 112.8
-      },
-      "Player 2": {
-          ...
-          "Hitting RPR": 13.3,            # 12
-          "Serving RPR": 16.2,            # 10.5
-          "Defense RPR": 10.7,            # 5.8
-          "Efficiency RPR": 20,           # 18
-          "Ranked Player Rating": 94.5,   # 72.8
-      },
-      "Player 3": {
-          ...
-          "Hitting RPR": 9.1,             # 16.7
-          "Serving RPR": 10.7,            # 15
-          "Defense RPR": 21.8,            # 7.7
-          "Efficiency RPR": 20,           # 20
-          "Ranked Player Rating": 96.8,   # 93.4
-      },
-      "Player 4": {
-          ...
-          "Hitting RPR": 8.9,             # 17.5
-          "Serving RPR": 17.5,            # 10.5
-          "Defense RPR": 42.7,            # 7
-          "Efficiency RPR": 20,           # 18
-          "Ranked Player Rating": 139.8,  # 83.4
-      }
+      ...
+      "Hitting RPR": 10.6,            # 17.1
+      "Serving RPR": 17,              # 17.8
+      "Defense RPR": 33.9,            # 16.7
+      "Efficiency RPR": 20.0,         # 20
+      "Ranked Player Rating": 128,    # 112.8
+},
+"Player 2": {
+      ...
+      "Hitting RPR": 13.3,            # 12
+      "Serving RPR": 16.2,            # 10.5
+      "Defense RPR": 10.7,            # 5.8
+      "Efficiency RPR": 20,           # 18
+      "Ranked Player Rating": 94.5,   # 72.8
+},
+"Player 3": {
+      ...
+      "Hitting RPR": 9.1,             # 16.7
+      "Serving RPR": 10.7,            # 15
+      "Defense RPR": 21.8,            # 7.7
+      "Efficiency RPR": 20,           # 20
+      "Ranked Player Rating": 96.8,   # 93.4
+},
+"Player 4": {
+      ...
+      "Hitting RPR": 8.9,             # 17.5
+      "Serving RPR": 17.5,            # 10.5
+      "Defense RPR": 42.7,            # 7
+      "Efficiency RPR": 20,           # 18
+      "Ranked Player Rating": 139.8,  # 83.4
+}
       </code></pre>
         </div>
       </div>
@@ -243,12 +243,12 @@
         of how to solve. I knew that if I seperated the X and Y components of the active ball across the frames, that I
         could get a rough idea of when the direction of the ball was interupted.</p>
 
-      <p><img src="img/v3-analytics/object_positions_with_gaps.png" alt="Ball Movement" /></p>
+      <p><img src="/img/v3-analytics/object_positions_with_gaps.png" alt="Ball Movement" /></p>
 
       <p>However, I first needed to fill in spots where inferencing failed. To do this, I used pandas interpolate
         function https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.interpolate.html.</p>
 
-      <p><img src="img/v3-analytics/object_positions_filled.png" alt="Interpolated Ball Movement" /></p>
+      <p><img src="/img/v3-analytics/object_positions_filled.png" alt="Interpolated Ball Movement" /></p>
 
       <p>From there, I could determine when those interuptions occur and label them as hits. All I needed to do was
         exclude the marked hits that occured above a net because for those, we can assume that the ball was just
@@ -257,13 +257,13 @@
         manual thresholding to minimize false negative predictions.
         https://docs.scipy.org/doc/scipy/reference/generated/scipy.signal.find_peaks.html.</p>
 
-      <p><img src="img/v3-analytics/hit_detection_y.png" alt="Hits Y" /></p>
+      <p><img src="/img/v3-analytics/hit_detection_y.png" alt="Hits Y" /></p>
 
       <p>The above example goes ahead in time a bit because it already has the serve and end marked so the only
         interuptions displayed by the black lines are the hits that aren’t on the net, before the serve, or after the
         volley has ended.</p>
 
-      <p><img src="img/v3-analytics/hit_detection_x.png" alt="Hits X" /></p>
+      <p><img src="/img/v3-analytics/hit_detection_x.png" alt="Hits X" /></p>
 
       <p>This method overall is fairly decent considering how little effort it was to implement. Although it isn’t
         perfect and false positives and negatives do exist on analysis, it is a good starting point. The only hits that
@@ -310,7 +310,7 @@
         teams. Using this graph structure allowed me to solve a max weight matching problem to derive the team
         assignments https://en.wikipedia.org/wiki/Maximum_weight_matching.</p>
 
-      <p><img src="img/v3-analytics/complete_graph.png" alt="Graph" /></p>
+      <p><img src="/img/v3-analytics/complete_graph.png" alt="Graph" /></p>
 
       <p>After this, it was just a matter of aggregating all the stats together per player and packaging them up for use
         in a readable format.</p>
@@ -325,11 +325,11 @@
         which is huge considering I can now run the orchestrator whenever I want and then upload videos from my phone
         remotely from anywhere. A screenshot of the docker orchestration tool is below.</p>
 
-      <p><img src="img/v3-analytics/docker_orchestrator.png" alt="Docker Orchestration" /></p>
+      <p><img src="/img/v3-analytics/docker_orchestrator.png" alt="Docker Orchestration" /></p>
 
       <p>Below is the current AWS infrastructure used to allow this whole process to occur.</p>
 
-      <p><img src="img/v3-analytics/Roundnet_AI_AWS_Infrastructure.png" alt="AWS Infrastructure" /></p>
+      <p><img src="/img/v3-analytics/Roundnet_AI_AWS_Infrastructure.png" alt="AWS Infrastructure" /></p>
 
       <h2 id="suggestions">Suggestions:</h2>
 
@@ -361,7 +361,7 @@
 
       <p>Here is a sneak peak at how an AI assisted training tool might look like in the future.</p>
 
-      <p><img src="img/v3-analytics/Independent_Serving.gif" alt="AI Assisted Training Tool" /></p>
+      <p><img src="/img/v3-analytics/Independent_Serving.gif" alt="AI Assisted Training Tool" /></p>
 
       <h2 id="postface">Postface:</h2>
 
