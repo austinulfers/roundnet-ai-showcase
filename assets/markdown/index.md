@@ -6,6 +6,16 @@
 
 # Updates
 
+## Tracking Player Stats using AI for Roundnet.
+
+*Published: November 8th, 2022*
+
+<a href="assets/html/version_three.html">
+    <img src = "img/v3-analytics/analyzed_video.gif" width="700"/>
+</a>
+
+---
+
 ## Using a Faster R-CNN Deep Neural Network to Track Objects for the Sport of Roundnet.
 
 *Published: November 22nd, 2021*
