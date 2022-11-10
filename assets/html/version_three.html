@@ -233,8 +233,8 @@
       <p>I knew that there has been some initial research on how to use LSTMs in computer vision to generate the
         likihood of events occuring in a video [<em>5</em>]. However, besides this example, I
         haven’t seen this technique used widely outside of academia and I knew that trying to implement an LSTM ontop of
-        what I already had would be too big of a hurdle considering I wasn’t how to do that. So, to start, I decided to
-        focus on simpler solutions.</p>
+        what I already had would be too big of a hurdle considering I didn't know how to do that. So, to start, I
+        decided to focus on simpler solutions.</p>
 
       <h4 id="when-a-hit-occurs">When a hit occurs:</h4>
 
@@ -253,8 +253,7 @@
         exclude the marked hits that occured above a net because for those, we can assume that the ball was just
         bouncing off the net. In addition, once we know when a serve starts, we could also ignore any marked hits that
         occured before the serve started. To find these interuptions, I used scipy’s find_peaks function and added some
-        manual thresholding to minimize false negative predictions.
-        [<em>7</em>].</p>
+        manual thresholding to minimize false negative predictions [<em>7</em>].</p>
 
       <p><img src="/img/v3-analytics/hit_detection_y.png" alt="Hits Y" /></p>
 
@@ -276,7 +275,7 @@
 
       <h3 id="when-a-volley-starts-and-ends">When a volley starts and ends:</h3>
 
-      <p>Trying to determine when a volley started and ended turned out to be one of the hardest challeneges I’ve faced
+      <p>Trying to determine when a volley started and ended turned out to be one of the hardest challenges I’ve faced
         over this past year. Since I didn’t have the ability to know when a ball hit the ground, I had no determinate
         way to know when a volley ended. This similarly made finding when a volley starts difficult as well.
         Essentially, all I had to work with was that I knew when a ball was hit and when a ball was over the net. Since
@@ -306,7 +305,7 @@
         was perfect for what I was looking for. As shown below, I utilized a weighted complete graph to simulate the
         possible relationships between different players [<em>8</em>]. We were able to
         assume that players had to serve to the opposite teams so we used that to help determine who was on opposite
-        teams. Using this graph structure allowed me to solve a max weight matching problem to derive the team
+        teams. Using this graph structure allowed me to solve a maximum weight matching problem to derive the team
         assignments [<em>9</em>].</p>
 
       <p><img src="/img/v3-analytics/complete_graph.png" alt="Graph" /></p>
@@ -361,6 +360,12 @@
       <p>Here is a sneak peak at how an AI assisted training tool might look like in the future.</p>
 
       <p><img src="/img/v3-analytics/Independent_Serving.gif" alt="AI Assisted Training Tool" /></p>
+
+      <p>This setup works extremely well for my requirements at this stage. I can upload videos at any time or have
+        users have the ability to upload videos at any time and have a queue of messages in SQS waiting for my docker
+        orchestration to commence and actually run the analysis. If this project were to scale larger, at some point, I
+        would need to replace my local computer with cloud infrastructure but I'll cross that bridge once/if I get
+        there.</p>
 
       <h2 id="postface">Postface:</h2>
 

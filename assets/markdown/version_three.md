@@ -108,7 +108,7 @@ Now that we ideally know where the active ball is and where the players are, we 
 - When a serve starts.
 - When a volley ends.
 
-I knew that there has been some initial research on how to use LSTMs in computer vision to generate the likihood of events occuring in a video [*5*]. However, besides this example, I haven't seen this technique used widely outside of academia and I knew that trying to implement an LSTM ontop of what I already had would be too big of a hurdle considering I wasn't how to do that. So, to start, I decided to focus on simpler solutions.
+I knew that there has been some initial research on how to use LSTMs in computer vision to generate the likihood of events occuring in a video [*5*]. However, besides this example, I haven't seen this technique used widely outside of academia and I knew that trying to implement an LSTM ontop of what I already had would be too big of a hurdle considering I didn't know how to do that. So, to start, I decided to focus on simpler solutions.
 
 #### When a hit occurs:
 
@@ -134,7 +134,7 @@ When it comes to ownership of a hit, I use the wrist datapoints generated from t
 
 ### When a volley starts and ends:
 
-Trying to determine when a volley started and ended turned out to be one of the hardest challeneges I've faced over this past year. Since I didn't have the ability to know when a ball hit the ground, I had no determinate way to know when a volley ended. This similarly made finding when a volley starts difficult as well. Essentially, all I had to work with was that I knew when a ball was hit and when a ball was over the net. Since ocassionally balls would hit the net inbetween volleys and players would sometimes pass the ball to eachother using the net, this wasn't a guaranteed method.
+Trying to determine when a volley started and ended turned out to be one of the hardest challenges I've faced over this past year. Since I didn't have the ability to know when a ball hit the ground, I had no determinate way to know when a volley ended. This similarly made finding when a volley starts difficult as well. Essentially, all I had to work with was that I knew when a ball was hit and when a ball was over the net. Since ocassionally balls would hit the net inbetween volleys and players would sometimes pass the ball to eachother using the net, this wasn't a guaranteed method.
 
 After months of deliberation, I decided on a time based approach for determining when the volley ends. Essentially if a ball doesn't make it back to the net in X amount of time, we can assume the volley died. The downside of this approach is that it is a manual threshold and that it means we lose track of all hits that might have occured after the last ball left the net. The specfic stats that get impacted from this are when a receiver is Aced and on the last Defensive Hit.
 
@@ -144,7 +144,7 @@ Unfortunately, these areas are ones that I currently don't have a good suggestio
 
 ## Aggregating Stats:
 
-Now that we have the significant events, we can start to aggregate the stats. The first step is to determine which players are paired on the same team. This is needed because the stats for Breaks and Broken are determined based on if the server ends up winning or losing the volley. For this, I actually pulled out a throwback to my University level computer science data structures and algorithms class and found that the graph data structure was perfect for what I was looking for. As shown below, I utilized a weighted complete graph to simulate the possible relationships between different players [*8*]. We were able to assume that players had to serve to the opposite teams so we used that to help determine who was on opposite teams. Using this graph structure allowed me to solve a max weight matching problem to derive the team assignments [*9*].
+Now that we have the significant events, we can start to aggregate the stats. The first step is to determine which players are paired on the same team. This is needed because the stats for Breaks and Broken are determined based on if the server ends up winning or losing the volley. For this, I actually pulled out a throwback to my University level computer science data structures and algorithms class and found that the graph data structure was perfect for what I was looking for. As shown below, I utilized a weighted complete graph to simulate the possible relationships between different players [*8*]. We were able to assume that players had to serve to the opposite teams so we used that to help determine who was on opposite teams. Using this graph structure allowed me to solve a maximum weight matching problem to derive the team assignments [*9*].
 
 ![Graph](/img/v3-analytics/complete_graph.png)
 
@@ -159,6 +159,8 @@ Now, lets say I want the ability to use this application from the field. I setup
 Below is the current AWS infrastructure used to allow this whole process to occur.
 
 ![AWS Infrastructure](/img/v3-analytics/Roundnet_AI_AWS_Infrastructure.png)
+
+This setup works extremely well for my requirements at this stage. I can upload videos at any time or have users have the ability to upload videos at any time and have a queue of messages in SQS waiting for my docker orchestration to commence and actually run the analysis. If this project were to scale larger, at some point, I would need to replace my local computer with cloud infrastructure but I'll cross that bridge once/if I get there.
 
 ## Suggestions:
 
