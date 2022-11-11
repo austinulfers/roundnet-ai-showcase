@@ -1,12 +1,14 @@
 ![Roundnet AI Horizontal Logo](/img/logos/Roundnet%20AI%20Logo_Horz_Blk.png)
 
-### The tool that automatically allows you to track scoring, player & team stats, and train your serves like you've never been able to before.
+### The tool that automatically tracks scoring, stats, and allows you to train your serves like you've never been able to before.
 
-# Coming Summer 2023
+Any and all feedback can be sent directly to **roundnetai@gmail.com**
 
-# Updates
+If you would like the chance to participate in our alpha testing, please sign up for our mailing list [here](https://forms.gle/yUViuQKE48viBkSV9)!
 
-## Tracking Player Stats using AI for Roundnet.
+## Blog Updates
+
+### Tracking Player Stats using AI for Roundnet.
 
 *Published: November 8th, 2022*
 
@@ -16,7 +18,7 @@
 
 ---
 
-## Using a Faster R-CNN Deep Neural Network to Track Objects for the Sport of Roundnet.
+### Using a Faster R-CNN Deep Neural Network to Track Objects for the Sport of Roundnet.
 
 *Published: November 22nd, 2021*
 
@@ -26,7 +28,7 @@
 
 ---
 
-## A First Look at Sports Analytics for the Sport of Roundnet
+### A First Look at Sports Analytics for the Sport of Roundnet
 
 *Published: March 31st, 2020*
 
