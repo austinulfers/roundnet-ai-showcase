@@ -5,38 +5,92 @@
   <meta charset="utf-8" />
   <title>Subscribe to Roundnet AI</title>
   <meta name="description" content="Become a Pro Today! Subscribe to Roundnet AI." />
-
   <link rel="icon" href="./favicon.ico" type="image/x-icon" />
-  <link rel="stylesheet" href="./assets/css/normalize.css" />
-  <link rel="stylesheet" href="./assets/css/subscribe.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+  <link rel="stylesheet" href="./assets/css/subscribe.css">
 </head>
 
 <body>
-  <div class="sr-root">
-    <div class="sr-main">
-      <header class="sr-header">
-        <div class="sr-header__logo"></div>
-      </header>
-      <div class="sr-container">
-        <section class="container">
-          <h1>BECOME A PRO TODAY.</h1>
-          <p>Supercharge your game analysis with Roundnet AI to accelerate our sport’s rise to the top.</p>
-          <button onclick="window.location.href='https://buy.stripe.com/bIY2aX0vv6so4wg8ww';">
-            <div>
-              <p>Pro Monthly</p>
-              <p>$4.99/mo</p>
+  <section class="plans__container">
+    <div class="plans">
+      <a class="logo" href="/">
+        <img src="/img/logos/Roundnet AI Logo_Horz_Blk.png" height="30" alt="Roundnet AI Logo" loading="lazy" />
+      </a>
+      <div class="plansHero">
+        <h1 class="plansHero__title">BECOME A PRO TODAY.</h1>
+        <p class="plansHero__subtitle">Supercharge your game analysis with Roundnet AI to accelerate our sport’s rise to the top.</p>
+      </div>
+      <div class="planItem__container">
+        <!--free plan starts -->
+        <div class="planItem planItem--free">
+
+          <div class="card">
+            <div class="card__header">
+              <h2>Free</h2>
             </div>
-          </button>
-          <button onclick="window.location.href='https://buy.stripe.com/aEUeXJa653gce6QeUV';">
-            <div>
-              <p>Pro Annually</p>
-              <p>$49.99/mo</p>
+            <div class="card__desc">The essentials. Ideal for casual players who want to experience core features at no cost.</div>
+          </div>
+
+          <div class="price">$0<span>/ month</span></div>
+
+          <ul class="featureList">
+            <li>AI powered analysis</li>
+            <li>30min upload time/month</li>
+            <li class="disabled">Full game export</li>
+            <li class="disabled">Ads</li>
+          </ul>
+
+          <button class="button button--disabled">Current Plan</button>
+        </div>
+        <!--free plan ends -->
+
+        <!--pro plan starts -->
+        <div class="planItem planItem--pro">
+          <div class="card">
+            <div class="card__header">
+              <h2>Pro</h2>
             </div>
-          </button>
-        </section>
+            <div class="card__desc">Best for professional players and those looking to improve their game.</div>
+          </div>
+
+          <div class="price">$4.99<span>/ month</span></div>
+
+          <ul class="featureList">
+            <li>AI powered analysis</li>
+            <li>5hrs upload time/month</li>
+            <li>Full game export</li>
+            <li>No Ads</li>
+          </ul>
+
+          <button class="button button--yellow">Get Started</button>
+        </div>
+        <!--pro plan ends -->
+
+        <!--entp plan starts -->
+        <div class="planItem">
+          <div class="card">
+            <div class="card__header">
+              <h2>Pro+</h2>
+            </div>
+            <div class="card__desc">All the features of Pro with 20 hours of upload time! Perfect for coaches, club leaders, and tournament directors.</div>
+          </div>
+
+          <div class="price">$11.99<span>/ month</span></div>
+
+          <ul class="featureList">
+            <li>AI powered analysis</li>
+            <li>20hrs upload time/month</li>
+            <li>Full game export</li>
+            <li>No Ads</li>
+          </ul>
+
+          <button class="button button--yellow">Get Started</button>
+        </div>
+        <!--entp plan ends -->
+
       </div>
     </div>
-  </div>
+  </section>
 </body>
 
 </html>
