@@ -41,8 +41,8 @@ body {
 
 .plansHero {
   text-align: center;
-  padding: 5rem 0 4.5rem;
-  line-height: 1.21;
+  padding: 4rem 0 0 0;
+  line-height: 1.11;
 }
 
 .plansHero__title {
@@ -54,6 +54,7 @@ body {
 
 .plansHero__subtitle {
   margin: 0;
+  line-height: 1.5;
 }
 
 .planItem {
@@ -77,14 +78,33 @@ body {
   gap: 1.5rem;
 }
 
-.planItem .price {
-  --priceMargin: 2rem 0;
-}
-
 .planItem--pro {
   border-color: var(--yellow);
   border-width: 2px;
   --boxShadow: 0px 7px 10px rgba(204, 204, 204, 0.62);
+}
+
+.percentSaved__container {
+  margin-top: 36px;
+  margin-bottom: 36px;
+  position: relative;
+}
+
+.planItem--proPlus .percentSaved__container {
+  margin-top: 12px;
+}
+
+.percentSaved {
+  visibility: hidden;
+  position: absolute;
+  right: 8px;
+  color: #19422B;
+  background-color: #E0F7EC;
+  border: 1px solid #E0F7EC;
+  border-radius: 100px;
+  font-weight: 600;
+  font-size: 11px;
+  padding: 4px 8px;
 }
 
 .planItem .button {
@@ -109,10 +129,9 @@ body {
   color: var(--color);
   cursor: pointer;
   transition: all 0.1s ease-in-out;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
+  display: flex;
+  justify-content: center;
+  text-decoration: none;
 }
 
 .button--yellow {
@@ -166,16 +185,15 @@ body {
   color: var(--descColor);
 }
 
+
 .price {
   --color: #000;
-  --priceMargin: 0;
   display: flex;
   color: var(--color);
   align-items: center;
   gap: 0.5625rem;
   font-weight: 600;
   font-size: 2rem;
-  margin: var(--priceMargin);
 }
 
 .price span {
@@ -188,14 +206,14 @@ body {
   --color: #000;
   --icon: var(--blueTick);
   --height: 0.875rem;
-  margin: 0 0 2.75rem;
+  margin: 0 0 1.5rem;
   padding: 0;
   font-weight: 500;
 }
 
 .featureList li {
   color: var(--color);
-  margin-bottom: 2rem;
+  margin-bottom: 1.5rem;
   display: flex;
   align-items: center;
   gap: 1rem;
@@ -247,6 +265,81 @@ body {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+}
+
+/* SLIDER */
+.slider__container {
+  display: flex;
+  align-items: row;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 24px;
+  margin-bottom: 24px;
+}
+
+.slider__container p {
+  color: #000000;
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked+.slider {
+  background-color: var(--yellow);
+}
+
+input:focus+.slider {
+  box-shadow: 0 0 1px var(--yellow);
+}
+
+input:checked+.slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
 }
 
 @media screen and (max-width: 640px) {

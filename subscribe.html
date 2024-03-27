@@ -18,8 +18,18 @@
       </a>
       <div class="plansHero">
         <h1 class="plansHero__title">BECOME A PRO TODAY.</h1>
-        <p class="plansHero__subtitle">Supercharge your game analysis with Roundnet AI to accelerate our sport’s rise to the top.</p>
+        <p class="plansHero__subtitle">Supercharge your game analysis with Roundnet AI to accelerate our sport’s rise to the top.<br>Only one membership is required for both Roundnet AI Desktop and Mobile.</p>
+        
+        <div class="slider__container">
+          <p>Monthly</p>
+          <label class="switch">
+            <input id="priceToggle" type="checkbox">
+            <span class="slider round"></span>
+          </label>
+          <p>Annually</p>
+        </div>
       </div>
+
       <div class="planItem__container">
         <!--free plan starts -->
         <div class="planItem planItem--free">
@@ -31,7 +41,9 @@
             <div class="card__desc">The essentials. Ideal for casual players who want to experience core features at no cost.</div>
           </div>
 
-          <div class="price">$0<span>/ month</span></div>
+          <div class="percentSaved__container">
+            <div class="price">$0<span>/ month</span></div>
+          </div>
 
           <ul class="featureList">
             <li>AI powered analysis</li>
@@ -40,7 +52,7 @@
             <li class="disabled">Ads</li>
           </ul>
 
-          <button class="button button--disabled">Current Plan</button>
+          <a class="button button--disabled">Current Plan</a>
         </div>
         <!--free plan ends -->
 
@@ -50,10 +62,13 @@
             <div class="card__header">
               <h2>Pro</h2>
             </div>
-            <div class="card__desc">Best for professional players and those looking to improve their game.</div>
+            <div class="card__desc">Best for professional players and those looking to improve their game.<br></div>
           </div>
 
-          <div class="price">$4.99<span>/ month</span></div>
+          <div class="percentSaved__container">
+            <div class="percentSaved">SAVE 16%</div>
+            <div class="price">$4.99<span>/ month</span></div>
+          </div>
 
           <ul class="featureList">
             <li>AI powered analysis</li>
@@ -62,12 +77,12 @@
             <li>No Ads</li>
           </ul>
 
-          <button class="button button--yellow">Get Started</button>
+          <a class="button button--yellow" href="https://buy.stripe.com/bIY2aX0vv6so4wg8ww" target="_blank" >Get Started</a>
         </div>
         <!--pro plan ends -->
 
-        <!--entp plan starts -->
-        <div class="planItem">
+        <!--pro+ plan starts -->
+        <div class="planItem planItem--proPlus">
           <div class="card">
             <div class="card__header">
               <h2>Pro+</h2>
@@ -75,7 +90,10 @@
             <div class="card__desc">All the features of Pro with 20 hours of upload time! Perfect for coaches, club leaders, and tournament directors.</div>
           </div>
 
-          <div class="price">$11.99<span>/ month</span></div>
+          <div class="percentSaved__container">
+            <div class="percentSaved">SAVE 32%</div>
+            <div class="price">$11.99<span>/ month</span></div>
+          </div>
 
           <ul class="featureList">
             <li>AI powered analysis</li>
@@ -84,13 +102,14 @@
             <li>No Ads</li>
           </ul>
 
-          <button class="button button--yellow">Get Started</button>
+          <a class="button button--yellow" href="">Get Started</a>
         </div>
-        <!--entp plan ends -->
+        <!--pro+ plan ends -->
 
       </div>
     </div>
   </section>
+  <script src="subscribe.js"></script>
 </body>
 
 </html>
