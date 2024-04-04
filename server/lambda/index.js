@@ -2,10 +2,9 @@ const stripePackage = require('stripe');
 const https = require('https');
 const { queryUserByEmail } = require('./dynamoQueries');
 
-const stripe = stripePackage(process.env.STRIPE_API_KEY_TEST);
-const endpointSecret = process.env.ENDPOINT_SECRET_TEST;
+const stripe = stripePackage(process.env.STRIPE_API_KEY);
+const endpointSecret = process.env.ENDPOINT_SECRET;
 
-// Wrap the HTTPS request in a Promise
 const sendRequest = (options, data) => {
   return new Promise((resolve, reject) => {
     const req = https.request(options, (res) => {
@@ -47,7 +46,6 @@ exports.handler = async (event) => {
     };
   }
 
-  // Handle the event
   switch (stripeEvent.type) {
     case 'checkout.session.completed':
       console.log('CHECKOUT COMPLETED');

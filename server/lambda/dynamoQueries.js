@@ -4,7 +4,7 @@ const dynamoDb = new AWS.DynamoDB.DocumentClient();
 async function queryUserByEmail(email) {
 	console.log("Querying by email:", email);
 	const params = {
-		TableName: process.env.DYNAMO_USER_TABLE_TEST,
+		TableName: process.env.DYNAMO_USER_TABLE,
 		IndexName: 'usersByEmail',
 		KeyConditionExpression: 'email = :email',
 		ExpressionAttributeValues: { ':email': email }
@@ -16,7 +16,7 @@ async function queryUserByEmail(email) {
 		return data.Items;
 	} catch (error) {
 		console.error("Error querying DynamoDB:", error);
-		throw error; // Rethrow the error after logging
+		throw error;
 	}
 }
 
