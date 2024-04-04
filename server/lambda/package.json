@@ -1,0 +1,16 @@
+{
+  "name": "lambda",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "kylekusche",
+  "license": "ISC",
+  "dependencies": {
+    "aws-sdk": "^2.1592.0",
+    "https": "^1.0.0",
+    "stripe": "^14.23.0"
+  }
+}

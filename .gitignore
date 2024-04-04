@@ -1,1 +1,2 @@
-./server/configs.js
+/server/lambda/deploy.zip
+/server/lambda/node_modules
