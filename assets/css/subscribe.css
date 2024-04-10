@@ -53,8 +53,14 @@ body {
 }
 
 .plansHero__subtitle {
+  align-self: center;
+  text-align: center;
   margin: 0;
   line-height: 1.5;
+}
+
+.plansHero__subText {
+  margin-top: 24px;
 }
 
 .planItem {

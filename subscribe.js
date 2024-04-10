@@ -3,6 +3,22 @@ const PRO_ANNUALLY_LINK = "https://buy.stripe.com/4gw7vh4LL040faUbIM"
 const PRO_PLUS_MONTHLY_LINK = "https://buy.stripe.com/aEU4j5a654kg0g0dQS";
 const PRO_PLUS_ANNUALLY_LINK = "https://buy.stripe.com/14k5n9fqp040bYI4gj";
 
+function getQueryParamValue(param) {
+  const urlParams = new URLSearchParams(window.location.search);
+  return urlParams.get(param);
+}
+
+function appendPreferredEmailToLinks() {
+  const preferredEmail = getQueryParamValue('prefilled_email');
+  if (preferredEmail) {
+    const emailQueryParam = `?prefilled_email=${encodeURIComponent(preferredEmail)}`;
+    document.querySelector('.planItem--pro .button').href = PRO_MONTHLY_LINK + emailQueryParam;
+    document.querySelector('.planItem--proPlus .button').href = PRO_PLUS_MONTHLY_LINK + emailQueryParam;
+  }
+}
+
+appendPreferredEmailToLinks();
+
 document.getElementById('priceToggle').addEventListener('click', function () {
   const proPriceDiv = document.querySelector('.planItem--pro .price');
   const proButton = document.querySelector('.planItem--pro .button');
@@ -11,14 +27,18 @@ document.getElementById('priceToggle').addEventListener('click', function () {
   const percentSavedDivs = document.querySelectorAll('.percentSaved');
 
   const isMonthly = proPriceDiv.textContent.includes('$4.99');
+
+  const preferredEmail = getQueryParamValue('prefilled_email');
+  const emailQueryParam = preferredEmail ? `?prefilled_email=${encodeURIComponent(preferredEmail)}` : '';
+
   if (isMonthly) {
     proPriceDiv.innerHTML = '$49.99<span>/ year</span>';
-    proButton.href = PRO_ANNUALLY_LINK;
-    proPlusButton.href = PRO_PLUS_ANNUALLY_LINK;
+    proButton.href = PRO_ANNUALLY_LINK + emailQueryParam;
+    proPlusButton.href = PRO_PLUS_ANNUALLY_LINK + emailQueryParam;
   } else {
     proPriceDiv.innerHTML = '$4.99<span>/ month</span>';
-    proButton.href = PRO_MONTHLY_LINK;
-    proPlusButton.href = PRO_PLUS_MONTHLY_LINK;
+    proButton.href = PRO_MONTHLY_LINK + emailQueryParam;
+    proPlusButton.href = PRO_PLUS_MONTHLY_LINK + emailQueryParam;
   }
 
   if (isMonthly) {

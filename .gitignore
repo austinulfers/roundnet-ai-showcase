@@ -1,2 +1,3 @@
 /server/lambda/deploy.zip
 /server/lambda/node_modules
+.DS_Store
