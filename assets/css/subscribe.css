@@ -2,7 +2,9 @@
 
 :root {
   --baseColor: #656c7c;
+  --baseColorLight: #9095a3;
   --baseSize: 16px;
+  --baseSizeSmall: 14px;
   --baseLineHeight: 1.5;
   --fontFamily: Inter, sans-serif;
   --yellow: #FFD23F;
@@ -52,6 +54,10 @@ body {
   color: #000;
 }
 
+.plansHero__title span {
+  color: var(--yellow);
+}
+
 .plansHero__subtitle {
   align-self: center;
   text-align: center;
@@ -61,6 +67,8 @@ body {
 
 .plansHero__subText {
   margin-top: 24px;
+  color: var(--baseColorLight);
+  font-size: var(--baseSizeSmall);
 }
 
 .planItem {
@@ -74,6 +82,7 @@ body {
   padding: 2rem 1.5rem;
   display: inline-flex;
   flex-direction: column;
+  max-width: 350px;
 }
 
 .planItem__container {
@@ -82,6 +91,13 @@ body {
   grid-auto-flow: var(--direction);
   grid-auto-columns: 1fr;
   gap: 1.5rem;
+}
+
+.planItem__containerPlus {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
 }
 
 .planItem--pro {
