@@ -1,0 +1,12 @@
+/* Overrides on the default Blog styles */
+@media (min-width: 1200px) {
+  .blog-container {
+    max-width: 960px;
+  }
+}
+
+@media (min-width: 1400px) {
+  .blog-container {
+    max-width: 960px;
+  }
+}
