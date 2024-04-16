@@ -11,3 +11,9 @@ To update the Lambda function within AWS:
 3. Log in to the AWS Management Console and navigate to the Lambda service.
 4. Find the Lambda function, select it, and then choose "Upload from" under the Function code section.
 5. Choose the ZIP file you prepared and upload it to update the function.
+
+## Testing with Stripe and Lambda
+
+When you want to test in Stripe Test mode, you must go to your Lambda function and set the Configuration of IS_STRIPE_TESTING to true
+
+Of course, this is a temporary fix. Once this goes out to Production, we must create a second Lambda function with the same code changes

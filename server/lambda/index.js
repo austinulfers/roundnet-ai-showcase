@@ -1,9 +1,12 @@
 const stripePackage = require('stripe');
 const https = require('https');
 const { queryUserByEmail } = require('./dynamoQueries');
+const isStripeTesting = process.env.IS_STRIPE_TESTING === 'true';
 
-const stripe = stripePackage(process.env.STRIPE_API_KEY);
-const endpointSecret = process.env.ENDPOINT_SECRET;
+const API_KEY = isStripeTesting ? process.env.STRIPE_API_KEY_TEST : process.env.STRIPE_API_KEY;
+const ENDPOINT_SECRET = isStripeTesting ? process.env.ENDPOINT_SECRET_TEST : process.env.ENDPOINT_SECRET;
+
+const stripe = stripePackage(API_KEY);
 
 const sendRequest = (options, data) => {
   return new Promise((resolve, reject) => {
@@ -37,7 +40,7 @@ exports.handler = async (event) => {
   let stripeEvent;
 
   try {
-    stripeEvent = stripe.webhooks.constructEvent(body, sig, endpointSecret);
+    stripeEvent = stripe.webhooks.constructEvent(body, sig, ENDPOINT_SECRET);
   } catch (err) {
     console.log(`Webhook Error: ${err.message}`);
     return {
@@ -47,6 +50,7 @@ exports.handler = async (event) => {
   }
 
   switch (stripeEvent.type) {
+    // Update the User's attributes with Referral Code and Email in RevenueCat
     case 'checkout.session.completed':
       const checkoutSessionCreated = stripeEvent.data.object;
       console.log('CHECKOUT COMPLETED', checkoutSessionCreated);
@@ -87,7 +91,6 @@ exports.handler = async (event) => {
       };
 
       try {
-        // Update the User's attributes with Referral Code and Email in RevenueCat
         await sendRequest(checkoutOptions, checkoutData);
       } catch (error) {
         console.error("Request failed:", error);
@@ -100,11 +103,11 @@ exports.handler = async (event) => {
 
       break;
 
+    // Create a User Purchase in RevenueCat
     case 'customer.subscription.created':
       const customerSubscriptionCreated = stripeEvent.data.object;
       console.log('SUBSCRIPTION CREATED', customerSubscriptionCreated);
 
-      // Get the Customer Email and fetch the User ID from DynamoDB
       const customerId = customerSubscriptionCreated.customer;
       const customer = await stripe.customers.retrieve(customerId);
       const customerEmail = customer.email;
@@ -141,7 +144,6 @@ exports.handler = async (event) => {
       };
 
       try {
-        // Create a User Purchase in RevenueCat
         await sendRequest(options, data);
       } catch (error) {
         console.error("Request failed:", error);
