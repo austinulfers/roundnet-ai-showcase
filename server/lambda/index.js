@@ -48,8 +48,56 @@ exports.handler = async (event) => {
 
   switch (stripeEvent.type) {
     case 'checkout.session.completed':
-      console.log('CHECKOUT COMPLETED');
-      // Logic for handling checkout session completed
+      const checkoutSessionCreated = stripeEvent.data.object;
+      console.log('CHECKOUT COMPLETED', checkoutSessionCreated);
+
+      const referredBy = checkoutSessionCreated.client_reference_id;
+      const stripeCustomerEmail = checkoutSessionCreated.customer_details.email;
+
+      let checkoutId = null;
+      try {
+        const checkoutUsers = await queryUserByEmail(stripeCustomerEmail);
+        console.log("USERS FOUND: ", checkoutUsers);
+        checkoutId = checkoutUsers[0].id;
+      } catch (error) {
+        console.error("Error querying by user email:", error);
+        return {
+          statusCode: 500,
+          body: `Request failed: ${error.message}`,
+        };
+      }
+
+      const checkoutData = JSON.stringify({
+        app_user_id: checkoutId,
+        attributes: {
+          "Referred-By": { value: referredBy, updated_at_ms: Date.now() },
+          "Stripe-Email": { value: stripeCustomerEmail, updated_at_ms: Date.now() },
+        }
+      });
+
+      const checkoutOptions = {
+        hostname: 'api.revenuecat.com',
+        path: `/v1/subscribers/${checkoutId}/attributes`,
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-Platform': 'stripe',
+          'Authorization': `Bearer ${process.env.RC_STRIPE_PUBLIC_API_KEY}`
+        },
+      };
+
+      try {
+        // Update the User's attributes with Referral Code and Email in RevenueCat
+        await sendRequest(checkoutOptions, checkoutData);
+      } catch (error) {
+        console.error("Request failed:", error);
+        return {
+          statusCode: 500,
+          body: `Request failed: ${error.message}`,
+        };
+      }
+
+
       break;
 
     case 'customer.subscription.created':
@@ -93,6 +141,7 @@ exports.handler = async (event) => {
       };
 
       try {
+        // Create a User Purchase in RevenueCat
         await sendRequest(options, data);
       } catch (error) {
         console.error("Request failed:", error);
