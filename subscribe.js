@@ -11,13 +11,13 @@ function getQueryParamValue(param) {
 function buildQueryString() {
   const params = {};
   const preferredEmail = getQueryParamValue('prefilled_email');
-  const referrer = getQueryParamValue('referrer');
+  const clientRefId = getQueryParamValue('client_reference_id');
 
   if (preferredEmail) {
     params.prefilled_email = encodeURIComponent(preferredEmail);
   }
-  if (referrer) {
-    params.referrer = encodeURIComponent(referrer);
+  if (clientRefId) {
+    params['client_reference_id'] = encodeURIComponent(clientRefId);
   }
 
   const queryStrings = Object.entries(params).map(([key, value]) => `${key}=${value}`);
