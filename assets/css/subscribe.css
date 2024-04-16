@@ -10,8 +10,9 @@
   --yellow: #FFD23F;
   --yellowHover:#f7c705;
   --yellowLight: #ffe9a1;
+  --red: #ff0f0f;
   --blue: #1769ff;
---blueTick: url("data:image/svg+xml,%3Csvg width='18' height='14' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M16.552.134 5.717 10.97 1.448 6.701 0 8.149l5.717 5.717L18 1.583 16.552.134Z' fill='%233F6CFF'/%3E%3C/svg%3E%0A");
+  --blueTick: url("data:image/svg+xml,%3Csvg width='18' height='14' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M16.552.134 5.717 10.97 1.448 6.701 0 8.149l5.717 5.717L18 1.583 16.552.134Z' fill='%233F6CFF'/%3E%3C/svg%3E%0A");
   --close: url("data:image/svg+xml,%3Csvg width='18' height='18' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M18 1.414 16.586 0 9 7.586 1.414 0 0 1.414 7.586 9 0 16.586 1.414 18 9 10.414 16.586 18 18 16.586 10.414 9 18 1.414Z' fill='%23B1B8C9'/%3E%3C/svg%3E");
 }
 
@@ -67,8 +68,12 @@ body {
 
 .plansHero__subText {
   margin-top: 24px;
-  color: var(--baseColorLight);
+  color: var(--baseColor);
   font-size: var(--baseSizeSmall);
+}
+
+.plansHero__subText span {
+  font-weight: 600;
 }
 
 .planItem {
