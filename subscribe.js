@@ -8,6 +8,29 @@ function getQueryParamValue(param) {
   return urlParams.get(param);
 }
 
+function saveToLocalStorageWithExpiry(key, value, expiryInDays) {
+  const now = new Date();
+  const item = {
+    value: value,
+    expiry: now.getTime() + expiryInDays * 24 * 60 * 60 * 1000, // Convert days to milliseconds
+  };
+  localStorage.setItem(key, JSON.stringify(item));
+}
+
+function getFromLocalStorageWithExpiry(key) {
+  const itemStr = localStorage.getItem(key);
+  if (!itemStr) {
+    return null;
+  }
+  const item = JSON.parse(itemStr);
+  const now = new Date();
+  if (now.getTime() > item.expiry) {
+    localStorage.removeItem(key);
+    return null;
+  }
+  return item.value;
+}
+
 function buildQueryString() {
   const params = {};
   const preferredEmail = getQueryParamValue('prefilled_email');
@@ -16,8 +39,15 @@ function buildQueryString() {
   if (preferredEmail) {
     params.prefilled_email = encodeURIComponent(preferredEmail);
   }
+
   if (clientRefId) {
     params['client_reference_id'] = encodeURIComponent(clientRefId);
+    saveToLocalStorageWithExpiry('client_reference_id', clientRefId, 2); // Expires in 2 days
+  } else {
+    const storedClientRefId = getFromLocalStorageWithExpiry('client_reference_id');
+    if (storedClientRefId) {
+      params['client_reference_id'] = encodeURIComponent(storedClientRefId);
+    }
   }
 
   const queryStrings = Object.entries(params).map(([key, value]) => `${key}=${value}`);
