@@ -36,6 +36,10 @@ p {
 	margin: 0px !important;
 }
 
+.button--yellow:hover {
+	color: white !important;
+}
+
 .plans {
 	width: 65%;
 	max-width: 1128px;
