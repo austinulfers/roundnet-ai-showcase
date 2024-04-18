@@ -29,30 +29,32 @@ html {
 
 body {
 	margin: 0;
+	padding-top: 70px;
+}
+
+p {
+	margin: 0px !important;
 }
 
 .plans {
-	padding-top: 24px;
 	width: 65%;
 	max-width: 1128px;
 	margin: 0 auto;
 }
 
 .plans__container {
-	padding: 1rem 0 2rem;
+	padding: 0 0 2rem;
 }
 
 .plansHero {
 	text-align: center;
-	padding: 4rem 0 0 0;
+	padding: 2rem 0 0 0;
 	line-height: 1.11;
 }
 
 .plansHero__title {
 	font-weight: 700;
-	font-size: 2rem;
 	margin: 0 0 1rem 0;
-	color: #000;
 }
 
 .plansHero__title span {
@@ -98,6 +100,7 @@ body {
 	grid-auto-flow: var(--direction);
 	grid-auto-columns: 1fr;
 	gap: 1.5rem;
+	margin-bottom: 24px;
 }
 
 .planItem__containerPlus {

@@ -1,0 +1,21 @@
+:root {
+	--baseColor: #656c7c;
+	--baseColorLight: #9095a3;
+	--baseSize: 16px;
+	--baseSizeSmall: 14px;
+	--baseLineHeight: 1.5;
+	--fontFamily: Inter, sans-serif;
+	--yellow: #ffd23f;
+	--yellowHover: #ecbd03;
+	--yellowLight: #ffe9a1;
+	--red: #ff0f0f;
+	--blue: #1769ff;
+}
+
+body {
+	padding-top: 40px;
+}
+
+.text-header {
+	color: var(--yellow);
+}
