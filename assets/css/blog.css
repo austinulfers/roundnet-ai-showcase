@@ -1,0 +1,31 @@
+body {
+	padding-top: 70px;
+}
+
+/* Overrides on the default Blog styles */
+@media (min-width: 1400px) {
+	.container,
+	.container-lg,
+	.container-md,
+	.container-sm {
+		max-width: 720px;
+	}
+}
+
+@media (min-width: 1000px) {
+	.container,
+	.container-lg,
+	.container-md,
+	.container-sm {
+		max-width: 620px !important;
+	}
+}
+
+@media (min-width: 600px) {
+	.container,
+	.container-lg,
+	.container-md,
+	.container-sm {
+		max-width: 540px;
+	}
+}

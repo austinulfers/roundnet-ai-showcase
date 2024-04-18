@@ -2,72 +2,69 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Roundnet AI</title>
-    <link rel="icon" type="image/x-icon" href="/img/logos/favicon.ico?v=2" />
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.1.1/css/all.css">
-    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet" />
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.1/mdb.min.css" rel="stylesheet" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Roundnet AI</title>
+  <link rel="icon" type="image/x-icon" href="/img/logos/favicon.ico?v=2" />
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.1.1/css/all.css">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.1/mdb.min.css" rel="stylesheet" />
 </head>
 
 <body>
-    <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <!-- Container wrapper -->
-        <div class="container-fluid">
-            <!-- Toggle button -->
-            <button class="navbar-toggler" type="button" data-mdb-toggle="collapse"
-                data-mdb-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-                aria-label="Toggle navigation">
-                <i class="fas fa-bars"></i>
-            </button>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <!-- Container wrapper -->
+    <div class="container-fluid">
+      <!-- Toggle button -->
+      <button class="navbar-toggler" type="button" data-mdb-toggle="collapse" data-mdb-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <i class="fas fa-bars"></i>
+      </button>
 
-            <!-- Collapsible wrapper -->
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <!-- Navbar brand -->
-                <a class="navbar-brand mt-2 mt-lg-0" href="/">
-                    <img src="/img/logos/Roundnet AI Logo_Horz_Blk.png" height="30" alt="Roundnet AI Logo"
-                        loading="lazy" />
-                </a>
-                <!-- Left links -->
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link" href="/">Home</a>
-                    </li>
-                    <!-- Dropdown -->
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
-                            data-mdb-toggle="dropdown" aria-expanded="false">
-                            Download
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <li>
-                                <a class="dropdown-item"
-                                    href="https://apps.apple.com/us/app/roundnet-ai/id6446184148">Apple</a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item"
-                                    href="https://play.google.com/store/apps/details?id=com.roundnetai.roundnetai">Google</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/blog">Blog</a>
-                    </li>
-                </ul>
-                <!-- Left links -->
-            </div>
-            <!-- Collapsible wrapper -->
+      <!-- Collapsible wrapper -->
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <!-- Navbar brand -->
+        <a class="navbar-brand mt-2 mt-lg-0" href="/">
+          <img src="/img/logos/Roundnet AI Logo_Horz_Blk.png" height="30" alt="Roundnet AI Logo" loading="lazy" />
+        </a>
+        <!-- Left links -->
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link" href="/">Home</a>
+          </li>
+          <!-- Dropdown -->
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
+              data-mdb-toggle="dropdown" aria-expanded="false">
+              Download
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+              <li>
+                <a class="dropdown-item" href="https://apps.apple.com/us/app/roundnet-ai/id6446184148">Apple</a>
+              </li>
+              <li>
+                <a class="dropdown-item"
+                  href="https://play.google.com/store/apps/details?id=com.roundnetai.roundnetai">Google</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/blog">Blog</a>
+          </li>
+        </ul>
+        <!-- Left links -->
+      </div>
+      <!-- Collapsible wrapper -->
 
-            <!-- Right elements -->
-            <div class="d-flex align-items-center"></div>
-            <!-- Right elements -->
-        </div>
-        <!-- Container wrapper -->
-    </nav>
-    <!-- Navbar -->
-    <pre>
+      <!-- Right elements -->
+      <div class="d-flex align-items-center"></div>
+      <!-- Right elements -->
+    </div>
+    <!-- Container wrapper -->
+  </nav>
+  <!-- Navbar -->
+  <pre>
     <code>
         python ./classify/train.py --model yolov5s-cls.pt --data datasets/Active-Inactive-Gameplay-1 --img 720 --workers 0 --batch-size 32 --pretrained weights/yolov5s-cls.pt 
 classify\train: model=yolov5s-cls.pt, data=datasets/Active-Inactive-Gameplay-1, epochs=10, batch_size=32, imgsz=720, nosave=False, cache=None, device=, workers=0, project=runs\train-cls, name=exp, exist_ok=False, pretrained=weights/yolov5s-cls.pt, optimizer=Adam, lr0=0.001, decay=5e-05, label_smoothing=0.1, cutoff=None, dropout=None, verbose=False, seed=0, local_rank=-1
@@ -105,90 +102,89 @@ PyTorch Hub:     model = torch.hub.load('ultralytics/yolov5', 'custom', 'runs\tr
 Visualize:       https://netron.app
     </code>
   </pre>
-    <!-- Footer -->
-    <footer class="text-center text-lg-start bg-light text-muted">
-        <!-- Section: Social media -->
-        <section class="d-flex justify-content-center justify-content-lg-between p-4 border-bottom">
-            <!-- Left -->
-            <div class="me-5 d-none d-lg-block">
-                <span>Get connected with us on social networks:</span>
-            </div>
-            <!-- Left -->
+  <!-- Footer -->
+  <footer class="text-center text-lg-start bg-light text-muted">
+    <!-- Section: Social media -->
+    <section class="d-flex justify-content-center justify-content-lg-between p-4 border-bottom">
+      <!-- Left -->
+      <div class="me-5 d-none d-lg-block">
+        <span>Get connected with us on social networks:</span>
+      </div>
+      <!-- Left -->
 
-            <!-- Right -->
-            <div>
-                <a href="mailto:support@roundnet.ai" class="me-4 text-reset">
-                    <i class="fas fa-envelope"></i>
-                </a>
-                <a href="https://instagram.com/roundnet.ai" class="me-4 text-reset">
-                    <i class="fab fa-instagram"></i>
-                </a>
-                <a href="https://tiktok.com/@roundnet.ai" class="me-4 text-reset">
-                    <i class="fab fa-tiktok"></i>
-                </a>
-                <a href="https://youtube.com/@roundnetai" class="me-4 text-reset">
-                    <i class="fab fa-youtube"></i>
-                </a>
-                <a href="https://twitter.com/roundnetai" class="me-4 text-reset">
-                    <i class="fab fa-twitter"></i>
-                </a>
-            </div>
-            <!-- Right -->
-        </section>
-        <!-- Section: Social media -->
+      <!-- Right -->
+      <div>
+        <a href="mailto:support@roundnet.ai" class="me-4 text-reset">
+          <i class="fas fa-envelope"></i>
+        </a>
+        <a href="https://instagram.com/roundnet.ai" class="me-4 text-reset">
+          <i class="fab fa-instagram"></i>
+        </a>
+        <a href="https://tiktok.com/@roundnet.ai" class="me-4 text-reset">
+          <i class="fab fa-tiktok"></i>
+        </a>
+        <a href="https://youtube.com/@roundnetai" class="me-4 text-reset">
+          <i class="fab fa-youtube"></i>
+        </a>
+        <a href="https://twitter.com/roundnetai" class="me-4 text-reset">
+          <i class="fab fa-twitter"></i>
+        </a>
+      </div>
+      <!-- Right -->
+    </section>
+    <!-- Section: Social media -->
 
-        <!-- Section: Links  -->
-        <section class="">
-            <div class="container text-center text-md-start mt-5">
-                <!-- Grid row -->
-                <div class="row mt-3">
-                    <!-- Grid column -->
-                    <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
-                        <!-- Content -->
-                        <h6 class="text-uppercase fw-bold mb-4">
-                            <i class=""></i>Roundnet AI
-                        </h6>
-                        <p>
-                            Utilize AI to trim your full-length games down into each respective rally. Made by
-                            competitve roundnet
-                            atheletes, for
-                            compettive roudnnet athletes.
-                        </p>
-                    </div>
-                    <!-- Grid column -->
+    <!-- Section: Links  -->
+    <section class="">
+      <div class="container text-center text-md-start mt-5">
+        <!-- Grid row -->
+        <div class="row mt-3">
+          <!-- Grid column -->
+          <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
+            <!-- Content -->
+            <h6 class="text-uppercase fw-bold mb-4">
+              <i class=""></i>Roundnet AI
+            </h6>
+            <p>
+              Utilize AI to trim your full-length games down into each respective rally. Made by
+              competitve roundnet
+              athletes, for
+              compettive roudnnet athletes.
+            </p>
+          </div>
+          <!-- Grid column -->
 
-                    <!-- Grid column -->
-                    <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
-                        <!-- Links -->
-                        <h6 class="text-uppercase fw-bold mb-4">
-                            Trust & Legal
-                        </h6>
-                        <p>
-                            <a href="/privacy" class="text-reset">Privacy Policy</a>
-                        </p>
-                        <p>
-                            <a href="/terms" class="text-reset">Terms & Conditions</a>
-                        </p>
-                    </div>
-                    <!-- Grid column -->
+          <!-- Grid column -->
+          <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
+            <!-- Links -->
+            <h6 class="text-uppercase fw-bold mb-4">
+              Trust & Legal
+            </h6>
+            <p>
+              <a href="/privacy.html" class="text-reset">Privacy Policy</a>
+            </p>
+            <p>
+              <a href="/terms.html" class="text-reset">Terms & Conditions</a>
+            </p>
+          </div>
+          <!-- Grid column -->
 
-                    <!-- Grid column -->
-                    <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
-                        <!-- Links -->
-                        <h6 class="text-uppercase fw-bold mb-4">Contact</h6>
-                        <p>
-                            <i class="fas fa-envelope me-3"></i>
-                            support@roundnet.ai
-                        </p>
-                    </div>
-                    <!-- Grid column -->
-                </div>
-                <!-- Grid row -->
-            </div>
-        </section>
-        <!-- Section: Links  -->
-        <script type="text/javascript"
-            src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.1/mdb.min.js"></script>
+          <!-- Grid column -->
+          <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
+            <!-- Links -->
+            <h6 class="text-uppercase fw-bold mb-4">Contact</h6>
+            <p>
+              <i class="fas fa-envelope me-3"></i>
+              support@roundnet.ai
+            </p>
+          </div>
+          <!-- Grid column -->
+        </div>
+        <!-- Grid row -->
+      </div>
+    </section>
+    <!-- Section: Links  -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.1/mdb.min.js"></script>
 </body>
 
 </html>

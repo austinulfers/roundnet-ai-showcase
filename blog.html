@@ -9,64 +9,14 @@
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.1.1/css/all.css">
   <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet" />
   <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.1/mdb.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="./assets/css/blog.css">
 </head>
 
 <body>
-  <!-- Navbar -->
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <!-- Container wrapper -->
-    <div class="container-fluid">
-      <!-- Toggle button -->
-      <button class="navbar-toggler" type="button" data-mdb-toggle="collapse" data-mdb-target="#navbarSupportedContent"
-        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <i class="fas fa-bars"></i>
-      </button>
-
-      <!-- Collapsible wrapper -->
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <!-- Navbar brand -->
-        <a class="navbar-brand mt-2 mt-lg-0" href="/">
-          <img src="/img/logos/Roundnet AI Logo_Horz_Blk.png" height="30" alt="Roundnet AI Logo" loading="lazy" />
-        </a>
-        <!-- Left links -->
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li class="nav-item">
-            <a class="nav-link" href="/">Home</a>
-          </li>
-          <!-- Dropdown -->
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
-              data-mdb-toggle="dropdown" aria-expanded="false">
-              Download
-            </a>
-            <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-              <li>
-                <a class="dropdown-item" href="https://apps.apple.com/us/app/roundnet-ai/id6446184148">Apple</a>
-              </li>
-              <li>
-                <a class="dropdown-item"
-                  href="https://play.google.com/store/apps/details?id=com.roundnetai.roundnetai">Google</a>
-              </li>
-            </ul>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/blog">Blog</a>
-          </li>
-        </ul>
-        <!-- Left links -->
-      </div>
-      <!-- Collapsible wrapper -->
-
-      <!-- Right elements -->
-      <div class="d-flex align-items-center"></div>
-      <!-- Right elements -->
-    </div>
-    <!-- Container wrapper -->
-  </nav>
-  <!-- Navbar -->
+  <div id="nav-container"></div>
   <!-- Blog Section -->
   <section>
-    <div class="container">
+    <div class="container blog-container">
       <div class="row">
         <div class="col-md-12">
           <h1 class="my-4">Blog</h1>
@@ -76,7 +26,7 @@
             <div class="card-body">
               <h2 class="card-title">Roundnet AI App Launch</h2>
               <p class="card-text">We have launched! Check us out on iOS & Android!</p>
-              <a href="https://linktr.ee/roundnet.ai" class="btn btn-primary">Read More &rarr;</a>
+              <a href="https://linktr.ee/roundnet.ai" class="btn btn-primary">Download app &rarr;</a>
             </div>
             <div class="card-footer text-muted">
               Posted on June 3, 2023 by
@@ -86,25 +36,10 @@
           <!-- Blog Post -->
           <!-- Blog Post -->
           <div class="card mb-4">
-            <img class="card-img-top" src="/img/google-form-testing/form.png" alt="Google Forms Screenshot">
-            <div class="card-body">
-              <h2 class="card-title">Sign Up for App Testing</h2>
-              <p class="card-text">We are looking for beta testers to help us improve our app before we go live. Sign up
-                here!</p>
-              <a href="/signup" class="btn btn-primary">Read More &rarr;</a>
-            </div>
-            <div class="card-footer text-muted">
-              Posted on February 26, 2023 by
-              <a href="#">Roundnet AI</a>
-            </div>
-          </div>
-          <!-- Blog Post -->
-          <!-- Blog Post -->
-          <div class="card mb-4">
             <img class="card-img-top" src="/img/v3-analytics/analyzed_video.gif" alt="Computer Vision Video Overlay">
             <div class="card-body">
               <h2 class="card-title">Tracking Player Stats using AI for Roundnet.</h2>
-              <p class="card-text">A three year long journey of automatically tracking stats for roundnet atheletes is
+              <p class="card-text">A three year long journey of automatically tracking stats for roundnet athletes is
                 finally here! Check out some of the results.</p>
               <a href="/assets/html/version_three.html" class="btn btn-primary">Read More &rarr;</a>
             </div>
@@ -195,7 +130,7 @@
             </h6>
             <p>
               Utilize AI to trim your full-length games down into each respective rally. Made by competitve roundnet
-              atheletes, for
+              athletes, for
               compettive roudnnet athletes.
             </p>
           </div>
@@ -208,10 +143,10 @@
               Trust & Legal
             </h6>
             <p>
-              <a href="/privacy" class="text-reset">Privacy Policy</a>
+              <a href="/privacy.html" class="text-reset">Privacy Policy</a>
             </p>
             <p>
-              <a href="/terms" class="text-reset">Terms & Conditions</a>
+              <a href="/terms.html" class="text-reset">Terms & Conditions</a>
             </p>
           </div>
           <!-- Grid column -->
@@ -231,6 +166,8 @@
       </div>
     </section>
     <!-- Section: Links  -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.1/mdb.min.js"></script>
+    <script src="/assets/javascript/loadNavbar.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.1/mdb.min.js"></script>
 </body>
 
